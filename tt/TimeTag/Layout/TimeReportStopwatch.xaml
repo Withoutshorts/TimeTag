@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="TimeTag.Layout.TimeReportStopWatch"
+             xmlns:my1="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TimeTag.Layout"
+             xmlns:my="clr-namespace:TimeTag" 
+             mc:Ignorable="d" 
+             d:DesignHeight="277" d:DesignWidth="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="137*"/>
+            <RowDefinition Height="103*"/>
+        </Grid.RowDefinitions>
+
+        <!-- <TextBlock Height="30" HorizontalAlignment="Left" Margin="12,80,0,0" Name="txtDate" Text="25-11-2014" VerticalAlignment="Top" Width="90" />-->
+        <my:TimeInput Height="30" HorizontalAlignment="Left" Margin="12,37,0,0" x:Name="txtHours_st" Text="" VerticalAlignment="Top" Width="58" ValueChanged="txtHoursValueChanged" />
+        <my:TimeInput Height="30" HorizontalAlignment="Left" Margin="85,37,0,0" x:Name="txtHours_sl" Text="" VerticalAlignment="Top" Width="58" ValueChanged="txtHoursValueChanged"/>
+        <TextBlock Height="30" HorizontalAlignment="Left" Margin="157,37,0,0" Name="txtHours" Text="0" VerticalAlignment="Top" Width="37" TextAlignment="Center" RenderTransformOrigin="0.517,0.8"/>
+        <!--<TextBlock Height="30" HorizontalAlignment="Left" Margin="157,37,0,0" Name="txtHoursLbl" Text="0" VerticalAlignment="Top" TextAlignment="Center" RenderTransformOrigin="0.517,0.8"/>-->
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="75,44,0,0" Name="stsl_del" Text="-" VerticalAlignment="Top" Foreground="#464646" RenderTransformOrigin="0.75,-1.13" Width="5" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="226,74,0,0" Name="titleComments" Text="{StaticResource Comment}" VerticalAlignment="Top" Foreground="#464646" Width="79" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="226,9,0,0" Name="titleCustomer" Text="{StaticResource CustomerJob}" VerticalAlignment="Top" Foreground="#464646" Width="79" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="463,9,0,0" Name="titleActivity" Text="{StaticResource Activity}" VerticalAlignment="Top" Foreground="#464646" Width="44" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="157,10,0,0" x:Name="titleHours" TextAlignment="Center" VerticalAlignment="Top" Foreground="#464646" Width="37" Text="{StaticResource Time}" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,9,0,0" Name="titleStart" Text="{StaticResource Start}" VerticalAlignment="Top" Foreground="#464646" Width="73" />
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="85,10,0,0" Name="titleSlut" Text="{StaticResource Stop}" VerticalAlignment="Top" Foreground="#464646" RenderTransformOrigin="-0.25,0.435" Width="58" />
+
+
+        <my1:AutoCompleteBox TabIndex="2" Margin="226,37,0,0" Height="30" Width="223" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="autoCustomerJob" ItemsSource="{Binding}" FilterMode="Contains" SelectionChanged="autoCustomerJob_SelectionChanged_1">
+            <my1:AutoCompleteBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding}" Foreground="{Binding ItemColor}"  />
+                </DataTemplate>
+            </my1:AutoCompleteBox.ItemTemplate>
+        </my1:AutoCompleteBox>
+        <my1:AutoCompleteBox TabIndex="3" Margin="463,37,0,0" Height="30" Width="180" VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="autoActivity" ItemsSource="{Binding}" FilterMode="Contains">
+            <my1:AutoCompleteBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                        <TextBlock Text="{Binding Path=Description}" FontSize="9" Visibility="{Binding DescriptionVisibility}" Foreground="Gray" MaxHeight="12" ToolTip="{Binding Path=Description}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </my1:AutoCompleteBox.ItemTemplate>
+        </my1:AutoCompleteBox>
+
+        <TextBox Height="82" TextWrapping="Wrap" AcceptsReturn="True" TabIndex="4" HorizontalAlignment="Left" Margin="226,98,0,0" Name="txtComments" VerticalAlignment="Top" Width="417" Grid.RowSpan="2" />
+        <Button Height="20" HorizontalAlignment="Left" Margin="421,9,0,0" Name="btnOpdjobliste" VerticalAlignment="Top" Width="28" Click="opdJobliste_Click" FontSize="10" Background="White" Grid.RowSpan="1">
+            <Image Source="/TimeTag;component/Images/Opdater20x20.png" VerticalAlignment="Center"/>
+        </Button>
+
+        <Button Content="{StaticResource StartStop}" Height="82" TabIndex="1" HorizontalAlignment="Left" Margin="11,98,0,0" Name="btnStart" VerticalAlignment="Top" Foreground="White" Width="186" Click="btnStart_Click" FontSize="20" Background="#5cb85c" Grid.RowSpan="2" />
+        <Button Content="{StaticResource SendTime}" Height="30" TabIndex="5" HorizontalAlignment="Left" Margin="503,74,0,0" Name="btnSubmit" VerticalAlignment="Top" Width="140" Click="btnSubmit_Click" Background="#428bca" Foreground="White" Grid.Row="1" />
+        <!--<Button Background="#FFF1F1F1" Content="Gå til ugeseddel" Foreground="#464646" Height="30" HorizontalAlignment="Left" Margin="349,63,0,0" Name="btnGotoUgeSeddel" VerticalAlignment="Top" Width="140" BorderBrush="#FFDADADA" Click="btnGotoUgeSeddel_Click" Grid.Row="1" />-->
+        <TextBlock Height="23" HorizontalAlignment="Left" Margin="27,85,0,0" Name="titleOnline" Text="{StaticResource Online}" VerticalAlignment="Top" Foreground="#464646" Grid.Row="1" Width="58" />
+        <Ellipse Height="10" HorizontalAlignment="Left" Margin="11,89,0,0" Name="ellipseOnline" Stroke="Lime" VerticalAlignment="Top" Width="10" Fill="#FF6BAE58" OpacityMask="#FF6BAE58" Grid.Row="1" />
+
+        <TextBlock Height="23" HorizontalAlignment="Right" Margin="0,76,201,0" Name="txtSubmitStatus" Text="Timer er sendt til ugeseddel." VerticalAlignment="Top" Foreground="#FF00A000" OpacityMask="#FF00B700" Visibility="Collapsed" Grid.Row="1"  />
+        <TextBlock Height="30" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="12,42,0,0" x:Name="hoursToday" Text="{StaticResource HoursToday}" VerticalAlignment="Top" Foreground="#464646" Width="68" Grid.Row="1" />
+    </Grid>
+</UserControl>
