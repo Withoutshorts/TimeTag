@@ -1,0 +1,7 @@
+C:\Users\OliverStorm\Desktop\timetag_stop2\setup\SetupProject1\bin\Debug\cab1.cab
+C:\Users\OliverStorm\Desktop\timetag_stop2\setup\SetupProject1\bin\Debug\SetupProject1.msi
+C:\Users\OliverStorm\Desktop\timetag_stop2\setup\SetupProject1\bin\Debug\SetupProject1.wixpdb
+obj\Debug\Product.wixobj
+obj\Debug\SetupProject1.wixproj.BindContentsFileListnull.txt
+obj\Debug\SetupProject1.wixproj.BindOutputsFileListnull.txt
+obj\Debug\SetupProject1.wixproj.BindBuiltOutputsFileListnull.txt

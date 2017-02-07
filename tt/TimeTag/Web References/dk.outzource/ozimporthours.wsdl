@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="timeout_importTimer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ds">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="timeout_importTimerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="timeout_importTimerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="timeout_importTimerSoapIn">
+    <wsdl:part name="parameters" element="tns:timeout_importTimer" />
+  </wsdl:message>
+  <wsdl:message name="timeout_importTimerSoapOut">
+    <wsdl:part name="parameters" element="tns:timeout_importTimerResponse" />
+  </wsdl:message>
+  <wsdl:portType name="to_importSoap">
+    <wsdl:operation name="timeout_importTimer">
+      <wsdl:input message="tns:timeout_importTimerSoapIn" />
+      <wsdl:output message="tns:timeout_importTimerSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="to_importSoap" type="tns:to_importSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="timeout_importTimer">
+      <soap:operation soapAction="http://tempuri.org/timeout_importTimer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="to_importSoap12" type="tns:to_importSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="timeout_importTimer">
+      <soap12:operation soapAction="http://tempuri.org/timeout_importTimer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="to_import">
+    <wsdl:port name="to_importSoap" binding="tns:to_importSoap">
+      <soap:address location="https://outzource.dk/timeout_xp/wwwroot/ver2_1/timereg_net/ozimporthours.asmx" />
+    </wsdl:port>
+    <wsdl:port name="to_importSoap12" binding="tns:to_importSoap12">
+      <soap12:address location="https://outzource.dk/timeout_xp/wwwroot/ver2_1/timereg_net/ozimporthours.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

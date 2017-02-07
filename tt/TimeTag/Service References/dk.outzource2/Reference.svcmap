@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4a8038d4-5996-4339-ab00-9a9aed5c4cb8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://timeout2.outzource.dk/timeout_xp/wwwroot/ver2_14/timereg_net/ozimporthours_timetag.asmx" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ozimporthours_timetag.wsdl" MetadataType="Wsdl" ID="8afc204c-3452-4f1e-b8eb-00bde9a23178" SourceId="1" SourceUrl="http://timeout2.outzource.dk/timeout_xp/wwwroot/ver2_14/timereg_net/ozimporthours_timetag.asmx?wsdl" />
+    <MetadataFile FileName="ozimporthours_timetag.disco" MetadataType="Disco" ID="53a47d13-3e4b-465e-b303-76baea138bb8" SourceId="1" SourceUrl="http://timeout2.outzource.dk/timeout_xp/wwwroot/ver2_14/timereg_net/ozimporthours_timetag.asmx?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

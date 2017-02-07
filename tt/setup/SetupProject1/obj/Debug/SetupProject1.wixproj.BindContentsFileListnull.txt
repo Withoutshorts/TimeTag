@@ -1,0 +1,6 @@
+C:\Users\OliverStorm\Desktop\timetag_stop2\TimeTag\bin\Debug\NuGet.Core.dll
+C:\Users\OliverStorm\Desktop\timetag_stop2\TimeTag\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+C:\Users\OliverStorm\Desktop\timetag_stop2\TimeTag\bin\Debug\System.Windows.Controls.Layout.Toolkit.dll
+C:\Users\OliverStorm\Desktop\timetag_stop2\TimeTag\bin\Debug\TimeTag.exe
+C:\Users\OliverStorm\Desktop\timetag_stop2\TimeTag\bin\Debug\TimeTag.exe.config
+C:\Users\OliverStorm\Desktop\timetag_stop2\TimeTag\bin\Debug\WPFToolkit.dll
