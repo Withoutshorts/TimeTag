@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"><?define TimeTag_TargetDir=$(var.TimeTag.TargetDir)?>
+	<Product Id="c971eab9-2bdd-491e-bb9e-fa0d940c7e28" Name="TimeTag" Language="1033" Version="1.0.0.0" Manufacturer="Outzource" UpgradeCode="ad536f6b-4fff-4fc1-8300-0c343601b18a">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <UIRef Id="WixUI_InstallDir" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+    
+    
+
+		<Feature Id="ProductFeature" Title="TimeTag" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="ApplicationShortcutDesktop" />
+		</Feature>
+    
+   
+	</Product>
+  
+  <Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="TimeTag" />
+			</Directory>
+
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ApplicationProgramsFolder" Name="TimeTag"/>
+      </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop"></Directory>
+      
+    </Directory>
+    
+	</Fragment>
+
+  <Fragment>
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut" Guid="9bd13330-6540-406f-a3a8-d7f7c69ae7f9">
+        <Shortcut Id="ApplicationStartMenuShortcut" Name="TimeTag" Description="TimeTag" Target="[INSTALLFOLDER]TimeTag.exe" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />      
+        <RegistryValue Root="HKCU" Key="Software\TimeTag" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+    <DirectoryRef Id="DesktopFolder">
+      <Component Id="ApplicationShortcutDesktop" Guid="cde1e030-eb64-49a5-b7b8-400b379c2d1a">
+        <Shortcut Id="ApplicationDesktopShortcut" Name="TimeTag" Description="TimeTag" Target="[INSTALLFOLDER]TimeTag.exe" WorkingDirectory="INSTALLFOLDER" />
+        <RemoveFolder Id="RemoveDesktopFolder" Directory="DesktopFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\TimeTag" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+ 
+  </Fragment>
+
+
+    
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+			<Component Id="TimeTag.exe.config" Guid="c50cb668-faf3-46be-890c-e73d6c7ee2c7">
+			  <File Id="TimeTag.exe.config" Name="TimeTag.exe.config" Source="$(var.TimeTag_TargetDir)TimeTag.exe.config" />
+			</Component>
+			<Component Id="TimeTag.exe" Guid="48c59961-0762-47fd-8e99-9e1f971f3f6a">
+			  <File Id="TimeTag.exe" Name="TimeTag.exe" Source="$(var.TimeTag_TargetDir)TimeTag.exe" />
+			</Component>
+			<Component Id="System.Windows.Controls.Input.Toolkit.dll" Guid="d7ada42f-a6a6-4ba6-9e5b-7ac2d900aae6">
+			  <File Id="System.Windows.Controls.Input.Toolkit.dll" Name="System.Windows.Controls.Input.Toolkit.dll" Source="$(var.TimeTag_TargetDir)System.Windows.Controls.Input.Toolkit.dll" />
+			</Component>
+			<Component Id="System.Windows.Controls.Layout.Toolkit.dll" Guid="522745fa-77e9-48d9-96de-ad15d3ebd278">
+			  <File Id="System.Windows.Controls.Layout.Toolkit.dll" Name="System.Windows.Controls.Layout.Toolkit.dll" Source="$(var.TimeTag_TargetDir)System.Windows.Controls.Layout.Toolkit.dll" />
+			</Component>
+			<Component Id="WPFToolkit.dll" Guid="bca9725b-62b1-4ac0-ac6a-42bd579e626a">
+			  <File Id="WPFToolkit.dll" Name="WPFToolkit.dll" Source="$(var.TimeTag_TargetDir)WPFToolkit.dll" />
+			</Component>
+			<Component Id="NuGet.Core.dll" Guid="eee59fe5-32bd-4878-a7aa-86f40cf31298">
+			  <File Id="NuGet.Core.dll" Name="NuGet.Core.dll" Source="$(var.TimeTag_TargetDir)NuGet.Core.dll" />
+			</Component>
+      
+      <!--<Component Id="CMP_odbcreg" Guid="{115B002E-F4C9-48CD-8E1C-E8803B16AE69}">
+        <RegistryValue Id="rg_psql"
+                       Root="HKLM"
+                       Key="SOFTWARE\ODBC\ODBCINST.INI\ODBC Drivers"
+                       Name="PostgreSQL"
+                       Value="Installed"
+                       Type="string"
+                       KeyPath="yes"
+                       Action="write"/>
+      </Component> -->
+      
+		</ComponentGroup>
+	</Fragment>
+</Wix>

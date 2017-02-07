@@ -1,0 +1,1 @@
+msiexec /i "%~dp0mysql-connector-odbc-3.51.30-winx64.msi"

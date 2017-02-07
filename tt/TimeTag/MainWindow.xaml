@@ -1,0 +1,33 @@
+﻿<Window  
+        x:Class="TimeTag.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:my="clr-namespace:TimeTag" 
+        xmlns:layout="clr-namespace:TimeTag.Layout" 
+        Title="Outzource - TimeTag S 1.0.11.14" Height="320" Width="467" Icon="/TimeTag;component/Images/outzource.ico" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Closing="Window_Closing" ResizeMode="CanMinimize" Loaded="Window_Loaded">
+    <Grid Margin="11,4,4,5">
+        <layout:TimeReportManual x:Name="timeReportManual" Visibility="Hidden"></layout:TimeReportManual>
+        <layout:TimeReportStopWatch x:Name="timeReportStopWatch" Visibility="Hidden"></layout:TimeReportStopWatch>
+
+        <my:NotificationAreaIcon HorizontalAlignment="Left" Text="TimeTag - S" VerticalAlignment="Top" x:Name="notificationAreaIcon1" Icon="/TimeTag;component/Images/outzource.ico" MouseClick="notificationAreaIcon1_MouseClick" Height="0" Width="0">
+            <my:NotificationAreaIcon.ContextMenu x:Uid="NotifierContextMenu">
+                <ContextMenu>
+                    <MenuItem Header="Time offline" Name="menuTimeOffline" Click="menuTimeOffline_Click">
+                    </MenuItem>
+                    <MenuItem Header="Upload status" Name="menuLogStatus" Click="menuLogStatus_Click">
+                    </MenuItem>
+                    <MenuItem Header="User info" Name="menuUserInfo" Click="menuUserInfo_Click">
+                    </MenuItem>
+                    <MenuItem Header="Error log" Name="menuLogError" Click="menuLogError_Click">
+                    </MenuItem>
+                    <MenuItem Header="About" Name="menuAbout" Click="menuAbout_Click">
+                    </MenuItem>
+                    <MenuItem Header="Dataset" Name="menuDataSet" Click="menuDataSet_Click">
+                    </MenuItem>
+                    <MenuItem Header="Exit" Name="menuExit" Click="menuExit_Click" />
+                </ContextMenu>
+            </my:NotificationAreaIcon.ContextMenu>
+        </my:NotificationAreaIcon>
+    </Grid>
+</Window>
