@@ -288,7 +288,7 @@ namespace TimeTag.Layout
 
         private void SetInternetStatus()
         {
-            internetStatus = TimeReportHelper.RefreshInternetStatus(internetStatus, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource);
+            internetStatus = TimeReportHelper.RefreshInternetStatus();
             var converter = new System.Windows.Media.BrushConverter();
             if (internetStatus == InternetStatus.Online)
             {

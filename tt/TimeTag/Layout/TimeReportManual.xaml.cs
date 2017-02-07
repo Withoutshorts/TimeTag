@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,6 +22,7 @@ namespace TimeTag.Layout
     {
         DispatcherTimer timerShort = new DispatcherTimer();
         InternetStatus internetStatus = InternetStatus.Notset;
+        BackgroundWorker worker;
         public DataSet dsTimeTag = new DataSet();
 
         public List<outz_JobCustomer> lstJobCustomerNames
@@ -101,15 +105,21 @@ namespace TimeTag.Layout
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
-            
             try
             {
+                var sw = new Stopwatch();
                 string validationMessage;
+                sw.Start();
                 if (!ValidateSubmittedData(out validationMessage))
                 {
                     ShowStatus(validationMessage);
                     outz_Log.LogError(validationMessage);
                     return;
+                }
+                sw.Stop();
+                if (sw.ElapsedMilliseconds > 2000)
+                {
+                    outz_Log.LogToFile(string.Format("ValidateSubmittedData() has taken {0}ms", sw.ElapsedMilliseconds));
                 }
                 var jobName = string.Empty;
                 if (autoCustomerJob.SelectedItem != null)
@@ -120,7 +130,13 @@ namespace TimeTag.Layout
                 outz_TimeTag tt = new outz_TimeTag(jobName, ((outz_JobCustomer)autoCustomerJob.SelectedItem).ToString(), activityName, ConvertHoursToHoursMinutes(float.Parse(txtHours.Text)), txtComments.Text, lstJobCustomerNames, lstActivities, string.Empty, string.Empty, selectedDate.SelectedDate.Value);
                 tt.InitDataSet();
                 dsTimeTag = tt.DsTimeTag;
+                sw.Restart();
                 string status = tt.UploadTime();
+                sw.Stop();
+                if (sw.ElapsedMilliseconds > 2000)
+                {
+                    outz_Log.LogToFile(string.Format("UploadTime() has taken {0}ms", sw.ElapsedMilliseconds));
+                }
                 if (status.Contains(outz_TimeTag.Success_Web_Service))
                 {
                     //txtSubmitStatus.Text = outz_TimeTag.Success_Web_Service;
@@ -131,16 +147,20 @@ namespace TimeTag.Layout
                 {
                     ShowStatus(status);
                 }
-
                 ReSet();
                 //Log time upload status
                 outz_Log.LogStatus(status);
+                sw.Restart();
                 UpdateReportedHours();
+                sw.Stop();
+                if (sw.ElapsedMilliseconds > 2000)
+                {
+                    outz_Log.LogToFile(string.Format("UpdateReportedHours() has taken {0}ms", sw.ElapsedMilliseconds));
+                }
                 txtSubmitStatus.Foreground = Brushes.Green;
                 txtSubmitStatus.Text = FindResource("Succeed").ToString();
                 txtSubmitStatus.Visibility = System.Windows.Visibility.Visible;
                 settimer();
-
             }
             catch (Exception ex)
             {
@@ -208,7 +228,7 @@ namespace TimeTag.Layout
                 var hoursReportedBefore = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
                 if (decimal.Parse(txtHours.Text) + hoursReportedBefore > resourceHours)
                 {
-                    message = FindResource("ResourcesExceeded2") + " " + (resourceHours-(hoursReportedBefore + decimal.Parse(txtHours.Text))) + " " + FindResource("ResourcesExceeded3").ToString();
+                    message = FindResource("ResourcesExceeded2") + " " + (resourceHours - (hoursReportedBefore + decimal.Parse(txtHours.Text))) + " " + FindResource("ResourcesExceeded3").ToString();
                     return false;
                 }
             }
@@ -236,7 +256,6 @@ namespace TimeTag.Layout
             txtrefresh.Visibility = System.Windows.Visibility.Visible;
             settimer();
         }
-        
 
         
         private void autoCustomerJob_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
@@ -255,7 +274,14 @@ namespace TimeTag.Layout
                     else
                     {
                         outz_TimeTag tt = new outz_TimeTag();
+                        var sw = new Stopwatch();
+                        sw.Start();
                         activities = TimeReportHelper.GetJobActivities(autoCustomerJob.Text, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource);
+                        sw.Stop();
+                        if (sw.ElapsedMilliseconds > 2000)
+                        {
+                            outz_Log.LogToFile(string.Format("GetJobActivities() has taken {0}ms", sw.ElapsedMilliseconds));
+                        }
                     }
                     autoActivity.ItemsSource = activities;
                     if (ConfigHelper.ListActivities)
@@ -282,7 +308,7 @@ namespace TimeTag.Layout
         #endregion
 
 
-        public void settimer ()
+        public void settimer()
         {
             timerShort.Interval = new TimeSpan(0, 0, 0, 4);
             timerShort.Tick += new EventHandler(timerShort_Tick);
@@ -297,8 +323,6 @@ namespace TimeTag.Layout
               System.Threading.Thread.Sleep(10000);
               txtinlast.Visibility = System.Windows.Visibility.Hidden;
           } */
-
-
         private void ShowStatus(string statusMsg)
         {
             txtSubmitStatus.Text = statusMsg;
@@ -320,18 +344,56 @@ namespace TimeTag.Layout
 
         public void InitTimer()
         {
-            timerShort.Interval = new TimeSpan(0, 0, 0, 10);
-            timerShort.Tick += new EventHandler(timerShort_Tick);
-            timerShort.Start();
+            //timerShort.Interval = new TimeSpan(0, 0, 0, 10);
+            //timerShort.Tick += new EventHandler(timerShort_Tick);
+            //timerShort.Start();
+            RunInternetStatusCheck();
+
             selectedDate.SelectedDate = DateTime.Today;
             //Init auto complete box of customer and job
             autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs();
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
         }
 
+        private void RunInternetStatusCheck()
+        {
+            worker = new BackgroundWorker();
+            var oldStatus = internetStatus;
+            var jobList = (List<outz_JobCustomer>)autoCustomerJob.ItemsSource;
+            worker.DoWork += new DoWorkEventHandler((x,y) =>
+            {
+                internetStatus = TimeReportHelper.RefreshInternetStatus();
+                if (internetStatus == InternetStatus.Online && oldStatus == InternetStatus.Offline)
+                {
+                    TimeReportHelper.EmptyOfflineTime(jobList);
+                }
+                Thread.Sleep(5000);
+            });
+            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler((x,y) =>
+            {
+                var converter = new System.Windows.Media.BrushConverter();
+                if (internetStatus == InternetStatus.Online)
+                {
+                    titleOnline.Text = FindResource("Online").ToString();
+                    ellipseOnline.Fill = (Brush)converter.ConvertFromString("#FF6BAE58");
+                    ellipseOnline.OpacityMask = (Brush)converter.ConvertFromString("#FF6BAE58");
+                    ellipseOnline.Stroke = Brushes.Lime;
+                }
+                else
+                {
+                    titleOnline.Text = FindResource("Offline").ToString();
+                    ellipseOnline.Fill = Brushes.Red;
+                    ellipseOnline.OpacityMask = Brushes.Red;
+                    ellipseOnline.Stroke = Brushes.Red;
+                }
+                RunInternetStatusCheck();
+            });
+            worker.RunWorkerAsync();
+        }
+
         private void SetInternetStatus()
         {
-            internetStatus = TimeReportHelper.RefreshInternetStatus(internetStatus, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource);
+            internetStatus = TimeReportHelper.RefreshInternetStatus();
             var converter = new System.Windows.Media.BrushConverter();
             if (internetStatus == InternetStatus.Online)
             {
