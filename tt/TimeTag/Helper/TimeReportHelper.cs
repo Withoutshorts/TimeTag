@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
+
 using TimeTag.Entity;
 
 namespace TimeTag.Helper
@@ -14,7 +11,7 @@ namespace TimeTag.Helper
     {
         public const string INFO_NOT_SUBMIT = "Timer er ligger i kø og sendes når du er online.";
 
-        public static InternetStatus RefreshInternetStatus(InternetStatus oldStatus, List<outz_JobCustomer> jobs)
+        public static InternetStatus RefreshInternetStatus()
         {
             try
             {
@@ -22,10 +19,6 @@ namespace TimeTag.Helper
                 
                 if (isOnline)
                 {
-                    if (oldStatus == InternetStatus.Offline)
-                    {
-                        EmptyOfflineTime(jobs);
-                    }
                     return InternetStatus.Online;
                 }
                 else
@@ -70,7 +63,14 @@ namespace TimeTag.Helper
             {
                 outz_TimeTag tt = new outz_TimeTag();
                 outz_JobCustomer jc = new outz_JobCustomer();
+                var sw = new Stopwatch();
+                sw.Start();
                 jc.GetAllNames(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb);
+                sw.Stop();
+                if (sw.ElapsedMilliseconds > 2000)
+                {
+                    outz_Log.LogToFile(string.Format("ValidateSubmittedData() has taken {0}ms", sw.ElapsedMilliseconds));
+                }
                 return jc.ListAllJobCustomer;
             }
             catch (Exception ex)
