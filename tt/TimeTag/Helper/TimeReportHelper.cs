@@ -84,16 +84,17 @@ namespace TimeTag.Helper
         {
             try
             {
-                outz_TimeTag tt = new outz_TimeTag();
-                outz_Activity activity = new outz_Activity();
-
-                string jobid = outz_JobCustomer.GetId(selectedCustomerJob, jobs);
-
-                var positive = true;
-                //txtComments.Text = "positive: " + positive + ", tt.MID " + tt.MID + " , jobid = " + jobid + ", tt.LTO " + tt.LTO;
-
-                activity.GetAllNames(positive, tt.MID, jobid, tt.LTO, tt.IsNewDb);
-                return activity.ListAllActivities;
+                var activities = outz_JobCustomer.GetActivities(selectedCustomerJob, jobs);
+                if (activities == null)
+                {
+                    outz_TimeTag tt = new outz_TimeTag();
+                    outz_Activity activity = new outz_Activity();
+                    string jobid = outz_JobCustomer.GetId(selectedCustomerJob, jobs);
+                    var positive = true;
+                    activity.GetAllNames(positive, tt.MID, jobid, tt.LTO, tt.IsNewDb);
+                    activities = activity.ListAllActivities;
+                }
+                return activities;
             }
             catch (Exception ex)
             {

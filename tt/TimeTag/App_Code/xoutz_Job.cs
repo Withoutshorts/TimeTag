@@ -39,5 +39,7 @@ namespace TimeTag
         {
             return this.JobId.CompareTo(job.JobId);
         }
+
+        public List<outz_Activity> Activities { get; set; }
     }
 }

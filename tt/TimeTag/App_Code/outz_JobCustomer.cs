@@ -16,6 +16,7 @@ namespace TimeTag
         public string CustomerNo { get; set; }
         public bool IsCustomer { get; set; }
         public string CustomerInit { get; set; }
+        public List<outz_Activity> Activities { get; set; }
 
         /// <summary>
         /// List of job under customer if the instance is a customer
@@ -240,31 +241,42 @@ namespace TimeTag
         {
             string id = "0";
             string tmp = "";
-            
-
-            try
+            foreach (outz_JobCustomer jc in listNames)
             {
-                foreach (outz_JobCustomer jc in listNames)
+                tmp = jc.JobName + (jobNoIncluded ? " (" + jc.JobNo + ")" : "");
+                if (jc.JobName != null && tmp.Equals(name, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    tmp = jc.JobName + (jobNoIncluded ? " (" + jc.JobNo + ")" : "");
-                    if (jc.JobName != null && tmp.Equals(name, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        id = jc.JobId.ToString();
-                        break;
-                    }
-                    else if (jc.CustomerName != null && jc.CustomerName.Equals(name, StringComparison.InvariantCultureIgnoreCase) && jc.ListJob.Count > 0)
-                    {
-                        id = jc.ListJob[0].JobId.ToString();
-                        break;
-                    }
+                    id = jc.JobId.ToString();
+                    break;
+                }
+                else if (jc.CustomerName != null && jc.CustomerName.Equals(name, StringComparison.InvariantCultureIgnoreCase) && jc.ListJob.Count > 0)
+                {
+                    id = jc.ListJob[0].JobId.ToString();
+                    break;
                 }
             }
-            catch
-            {
-                throw;
-            }
-
             return id;
+        }
+
+        public static List<outz_Activity> GetActivities(string name, List<outz_JobCustomer> listNames, bool jobNoIncluded = true)
+        {
+            List<outz_Activity> activities = null;
+            string tmp = "";
+            foreach (outz_JobCustomer jc in listNames)
+            {
+                tmp = jc.JobName + (jobNoIncluded ? " (" + jc.JobNo + ")" : "");
+                if (jc.JobName != null && tmp.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    activities = jc.Activities;
+                    break;
+                }
+                else if (jc.CustomerName != null && jc.CustomerName.Equals(name, StringComparison.InvariantCultureIgnoreCase) && jc.ListJob.Count > 0)
+                {
+                    activities = jc.ListJob[0].Activities;
+                    break;
+                }
+            }
+            return activities;
         }
 
         public static string jobnavnsog { get; set; }
