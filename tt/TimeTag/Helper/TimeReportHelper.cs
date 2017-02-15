@@ -93,6 +93,7 @@ namespace TimeTag.Helper
                     var positive = true;
                     activity.GetAllNames(positive, tt.MID, jobid, tt.LTO, tt.IsNewDb);
                     activities = activity.ListAllActivities;
+                    outz_JobCustomer.SetActivities(selectedCustomerJob, jobs, activities);
                 }
                 return activities;
             }

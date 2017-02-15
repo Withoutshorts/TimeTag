@@ -258,6 +258,25 @@ namespace TimeTag
             return id;
         }
 
+        public static void SetActivities(string name, List<outz_JobCustomer> listNames, List<outz_Activity> activities, bool jobNoIncluded = true)
+        {
+            string tmp = "";
+            foreach (outz_JobCustomer jc in listNames)
+            {
+                tmp = jc.JobName + (jobNoIncluded ? " (" + jc.JobNo + ")" : "");
+                if (jc.JobName != null && tmp.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    jc.Activities = activities;
+                    break;
+                }
+                else if (jc.CustomerName != null && jc.CustomerName.Equals(name, StringComparison.InvariantCultureIgnoreCase) && jc.ListJob.Count > 0)
+                {
+                    jc.ListJob[0].Activities = activities;
+                    break;
+                }
+            }
+        }
+
         public static List<outz_Activity> GetActivities(string name, List<outz_JobCustomer> listNames, bool jobNoIncluded = true)
         {
             List<outz_Activity> activities = null;
