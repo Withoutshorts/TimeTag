@@ -20,7 +20,6 @@ namespace TimeTag.Layout
     /// </summary>
     public partial class TimeReportManual : UserControl
     {
-        DispatcherTimer timerShort = new DispatcherTimer();
         InternetStatus internetStatus = InternetStatus.Notset;
         BackgroundWorker worker;
         public DataSet dsTimeTag = new DataSet();
@@ -160,7 +159,6 @@ namespace TimeTag.Layout
                 txtSubmitStatus.Foreground = Brushes.Green;
                 txtSubmitStatus.Text = FindResource("Succeed").ToString();
                 txtSubmitStatus.Visibility = System.Windows.Visibility.Visible;
-                settimer();
             }
             catch (Exception ex)
             {
@@ -236,25 +234,11 @@ namespace TimeTag.Layout
             return true;
         }
 
-        private void timerShort_Tick(object sender, EventArgs e)
-        {
-            SetInternetStatus();
-
-            if (txtSubmitStatus.Visibility == System.Windows.Visibility.Visible)
-                txtSubmitStatus.Visibility = System.Windows.Visibility.Collapsed;
-
-            if (txtrefresh.Visibility == System.Windows.Visibility.Visible)
-            {
-                txtrefresh.Visibility = System.Windows.Visibility.Hidden;
-            }
-        }
-
         private void opdJobliste_Click(object sender, RoutedEventArgs e)
         {
             autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(); 
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
             txtrefresh.Visibility = System.Windows.Visibility.Visible;
-            settimer();
         }
 
         
@@ -307,22 +291,6 @@ namespace TimeTag.Layout
 
         #endregion
 
-
-        public void settimer()
-        {
-            timerShort.Interval = new TimeSpan(0, 0, 0, 4);
-            timerShort.Tick += new EventHandler(timerShort_Tick);
-            timerShort.Start();
-        }
-
-        /*  public void ShowStatusgreen ()
-          {
-              //txtinlast.Visibility = System.Windows.Visibility.Visible;
-              //txtinlast.Text = i.ToString();
-              txtinlast.Visibility = System.Windows.Visibility.Visible;
-              System.Threading.Thread.Sleep(10000);
-              txtinlast.Visibility = System.Windows.Visibility.Hidden;
-          } */
         private void ShowStatus(string statusMsg)
         {
             txtSubmitStatus.Text = statusMsg;
@@ -344,9 +312,6 @@ namespace TimeTag.Layout
 
         public void InitTimer()
         {
-            //timerShort.Interval = new TimeSpan(0, 0, 0, 10);
-            //timerShort.Tick += new EventHandler(timerShort_Tick);
-            //timerShort.Start();
             RunInternetStatusCheck();
 
             selectedDate.SelectedDate = DateTime.Today;
