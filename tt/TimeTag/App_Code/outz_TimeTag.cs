@@ -67,13 +67,14 @@ namespace TimeTag
             try
             {
                 string[] times = timeRow.Split(',');
-                if (times.Length == 6)
+                if (times.Length == 7)
                 {
                     this.Id = 0;
                     this.CustomerJob = times[0];
                     this.JobName = times[0] != null ? this.CustomerJob.Trim() : "";
                     this._jobId = int.Parse(outz_JobCustomer.GetId(this.CustomerJob, lstNames, false));
                     this.Activity = times[1];
+                    this.ActivityId = (times.Length > 6 && !string.IsNullOrEmpty(times[6])) ? long.Parse(times[6]) : 0;
                     float hours = 0.0f;
                     float.TryParse(times[2], out hours);
                     this.Hours = hours;
@@ -235,7 +236,7 @@ namespace TimeTag
             try
             {
                 //Log offline
-                string timeRow = string.Format("{0},{1},{2},{3},{4},{5}", this.CustomerJob, this.Activity, this.Hours, this.Comments, this.Status, this.CreatedTime);
+                string timeRow = string.Format("{0},{1},{2},{3},{4},{5},{6}", this.CustomerJob, this.Activity, this.Hours, this.Comments, this.Status, this.CreatedTime, this.ActivityId);
                 HelperSetting.Write(timeRow, Properties.Settings.Default.TimeOffline, true);
 
                 uploadStatus = UploadTimeService(IsNewDb);
