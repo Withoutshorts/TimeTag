@@ -35,10 +35,12 @@ namespace TimeTag
                 connectionString = "driver={MySQL ODBC 3.51 Driver};server=195.189.130.210;Port=3306;uid=outzource;pwd=SKba200473;database=timeout_" + lto + ";";
             }
 
-            //connectionString = "driver={MySQL ODBC 3.51 Driver};server=localhost; Port=3306; " +
-            //    "uid=lei;pwd=AlfaBeta123;database=timeout_intranet;";
 
-            //outz_Log.LogError("Conn: " + connectionString);
+
+            //connectionString = "driver={MySQL ODBC 3.51 Driver};server=localhost; Port=3306; " +
+            //    "uid=root;pwd=;database=timeout_intranet;";
+            //connectionString = "Driver={MySQL ODBC 3.51 Driver};Server=194.150.108.154;User=to_outzource2;Password=SKba200473;Database=timeout_bf;";
+            //outz_Log.LogError("Conn SK: " + connectionString);
 
             return connectionString;
         }
