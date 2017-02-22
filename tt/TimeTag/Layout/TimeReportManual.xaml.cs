@@ -220,10 +220,30 @@ namespace TimeTag.Layout
                 "bf".Equals(UserInfoProvider.LTO, StringComparison.InvariantCultureIgnoreCase) && 
                 SelectedCustomerId.HasValue && SelectedActivityId.HasValue)
             {
-                var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                var resourceHours = rdp.GetResourceHours(UserInfoProvider.MID, SelectedCustomerId.Value, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
-                HoursService hoursService = new HoursService(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                var hoursReportedBefore = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
+                var hoursReportedBefore = 0m;
+                var resourceHours = 0m;
+                try
+                {
+                    var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                    resourceHours = rdp.GetResourceHours(UserInfoProvider.MID, SelectedCustomerId.Value, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
+
+                    HoursService hoursService = new HoursService(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                    hoursReportedBefore = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
+                }
+                catch
+                {
+                    var activities = outz_JobCustomer.GetActivities(autoCustomerJob.Text, lstJobCustomerNames);
+                    var activity = activities.FirstOrDefault(act => act.Id == SelectedActivityId.Value);
+                    if (activity != null)
+                    {
+                        resourceHours = activity.ResourceHours;
+                        hoursReportedBefore = activity.ReportedHours;
+                        if (decimal.Parse(txtHours.Text) + hoursReportedBefore <= resourceHours)
+                        {
+                            activity.ReportedHours += decimal.Parse(txtHours.Text);
+                        }
+                    }
+                }
                 if (decimal.Parse(txtHours.Text) + hoursReportedBefore > resourceHours)
                 {
                     message = FindResource("ResourcesExceeded2") + " " + (resourceHours - (hoursReportedBefore + decimal.Parse(txtHours.Text))) + " " + FindResource("ResourcesExceeded3").ToString();
@@ -260,7 +280,7 @@ namespace TimeTag.Layout
                         outz_TimeTag tt = new outz_TimeTag();
                         var sw = new Stopwatch();
                         sw.Start();
-                        activities = TimeReportHelper.GetJobActivities(autoCustomerJob.Text, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource);
+                        activities = TimeReportHelper.GetJobActivities(autoCustomerJob.Text, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource, selectedDate.SelectedDate.Value);
                         sw.Stop();
                         if (sw.ElapsedMilliseconds > 2000)
                         {
@@ -383,16 +403,50 @@ namespace TimeTag.Layout
 
         private void UpdateReportedHours()
         {
-            if (selectedDate.SelectedDate.HasValue)
+            try
             {
-                outz_TimeTag tt = new outz_TimeTag();
-                HoursService hoursService = new HoursService(tt.LTO, tt.IsNewDb);
-                var hoursReported = hoursService.GetReportedHours(selectedDate.SelectedDate.Value, tt.MID);
-                txtHoursReported.Text = hoursReported.ToString("N2");
+                if (selectedDate.SelectedDate.HasValue)
+                {
+                    outz_TimeTag tt = new outz_TimeTag();
+                    HoursService hoursService = new HoursService(tt.LTO, tt.IsNewDb);
+                    var hoursReported = hoursService.GetReportedHours(selectedDate.SelectedDate.Value, tt.MID);
+
+                    txtHoursReported.Text = hoursReported.ToString("N2");
+                    if (tt.PA == "2" && !string.IsNullOrEmpty(autoCustomerJob.Text))
+                    {
+                        var activity = new outz_Activity();
+                        string jobid = outz_JobCustomer.GetId(autoCustomerJob.Text, lstJobCustomerNames);
+                        activity.GetAllNames(true, tt.MID, jobid, tt.LTO, tt.IsNewDb);
+                        var activities = activity.ListAllActivities;
+
+                        foreach (var act in activities)
+                        {
+                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate.SelectedDate.Value);
+
+                            act.ReportedHours = hoursService.GetReportedHoursByActivity(tt.MID, act.Id, selectedDate.SelectedDate.Value); 
+                        }
+                        outz_JobCustomer.SetActivities(autoCustomerJob.Text, lstJobCustomerNames, activities);
+                    }
+                }
+                else
+                {
+                    txtHoursReported.Text = 0.ToString("N2");
+                }
             }
-            else
+            catch
             {
                 txtHoursReported.Text = 0.ToString("N2");
+                outz_TimeTag tt = new outz_TimeTag();
+                if (tt.PA == "2")
+                {
+                    var activities = outz_JobCustomer.GetActivities(autoCustomerJob.Text, lstJobCustomerNames);
+                    foreach (var act in activities)
+                    {
+                        act.ResourceHours = 0;
+                        act.ReportedHours = 0;
+                    }
+                }
             }
         }
     }

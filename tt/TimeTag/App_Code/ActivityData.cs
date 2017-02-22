@@ -137,9 +137,6 @@ namespace TimeTag
 
                  while (reader.Read())
                  {
-
-                     
-
                      if (count >= startRecord)
                      {
                          //if (Activities.Count < maxRecords)
