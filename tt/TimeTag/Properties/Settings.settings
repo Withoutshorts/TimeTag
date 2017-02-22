@@ -47,11 +47,11 @@
     <Setting Name="ListActivities" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="TimeInputMode" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Stopwatch</Value>
-    </Setting>
     <Setting Name="Culture" Type="System.String" Scope="Application">
       <Value Profile="(Default)">fr-FR</Value>
+    </Setting>
+    <Setting Name="TimeInputMode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Manual</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -132,19 +132,19 @@ namespace TimeTag.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Stopwatch")]
-        public string TimeInputMode {
+        [global::System.Configuration.DefaultSettingValueAttribute("fr-FR")]
+        public string Culture {
             get {
-                return ((string)(this["TimeInputMode"]));
+                return ((string)(this["Culture"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("fr-FR")]
-        public string Culture {
+        [global::System.Configuration.DefaultSettingValueAttribute("Manual")]
+        public string TimeInputMode {
             get {
-                return ((string)(this["Culture"]));
+                return ((string)(this["TimeInputMode"]));
             }
         }
     }
