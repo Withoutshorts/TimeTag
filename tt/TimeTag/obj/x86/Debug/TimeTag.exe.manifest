@@ -4,7 +4,7 @@
   <description asmv2:iconFile="Images\outzource.ico" asmv2:publisher="Outzource" co.v1:suiteName="TimeOut" asmv2:product="TimeTag" asmv2:supportUrl="http://www.outzource.dk/kontakt.aspx" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="TimeTag" version="1.0.0.4" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="TimeTag" version="1.0.0.9" language="neutral" processorArchitecture="x86" />
     <commandLine file="TimeTag.exe" parameters="" />
   </entryPoint>
   <co.v1:useManifestForTrust xmlns="urn:schemas-microsoft-com:asm.v1" />
@@ -80,14 +80,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TimeTag.exe" size="336896">
-      <assemblyIdentity name="TimeTag" version="1.0.0.4" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TimeTag.exe" size="335872">
+      <assemblyIdentity name="TimeTag" version="1.0.0.9" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>jywem1AWQWky7uxeZSSB6oNBSOY=</dsig:DigestValue>
+        <dsig:DigestValue>DAHxv//N+4LUZ+JQrkrEGPPU1kk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -118,7 +118,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>9Lh33po79Rm7zY872FleYwuz4EY=</dsig:DigestValue>
+      <dsig:DigestValue>xwFDy7dBsDQ2mXMgwnaCYAImRYw=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

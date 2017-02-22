@@ -88,8 +88,8 @@ namespace TimeTag
 
              string jobSQLkri = "";
 
-             if (jobid != 0 && jobid != null)
-             {
+            if (jobid != 0 && jobid != null) //
+            {
                  jobSQLkri = "tu.jobid = " + jobid + "";
              }
              else {
@@ -97,29 +97,41 @@ namespace TimeTag
                  jobSQLkri = "tu.jobid = 0"; //Tom liste
              }
 
-             string sqlCmd = "SELECT a.id, a.navn as aktnavn, " +
-                                " a.projektgruppe1, a.projektgruppe2, a.projektgruppe3, a.projektgruppe4, a.projektgruppe5, " +
-                                " a.projektgruppe6, a.projektgruppe7, a.projektgruppe8, a.projektgruppe9, a.projektgruppe10, a.beskrivelse, tu.jobid " +
-                                " FROM timereg_usejob AS tu " +
-                                " LEFT JOIN aktiviteter as a " +
-                                " on (a.job = tu.jobid) and a.aktstatus = 1" +
-                                " LEFT JOIN akt_typer AS at ON (at.aty_id = a.fakturerbar) " +
-                                " where " + jobSQLkri + " and tu.medarb = " + medid + " and at.aty_on = 1 AND at.aty_on_realhours = 1 AND at.aty_hide_on_treg = 0 and a.aktstatus = 1"; // and tu.aktid <> 0";
+
+            // PA = 1 el. 0
+            //string sqlCmd = "SELECT a.id, a.navn as aktnavn, " +
+            //" a.projektgruppe1, a.projektgruppe2, a.projektgruppe3, a.projektgruppe4, a.projektgruppe5, " +
+            //" a.projektgruppe6, a.projektgruppe7, a.projektgruppe8, a.projektgruppe9, a.projektgruppe10, tu.jobid " +
+            //" FROM timereg_usejob AS tu " +
+            //" LEFT JOIN aktiviteter as a " +
+            //" on (a.job = tu.jobid) and a.aktstatus = 1" +
+            //" LEFT JOIN akt_typer AS at ON (at.aty_id = a.fakturerbar) " +
+            //" where " + jobSQLkri + " and tu.medarb = " + medid + " and at.aty_on = 1 AND at.aty_on_realhours = 1 AND at.aty_hide_on_treg = 0 and a.aktstatus = 1"; // and tu.aktid <> 0";
 
 
-             sqlCmd += " GROUP BY a.id ";
 
-             if (sortColumns.Trim() == "")
-                 sqlCmd += " ORDER BY sortorder";
-             else
-                 sqlCmd += " ORDER BY " + sortColumns;
+            // PA = 2 BF
+            string sqlCmd = "SELECT a.id, a.navn as aktnavn, " +
+            " a.projektgruppe1, a.projektgruppe2, a.projektgruppe3, a.projektgruppe4, a.projektgruppe5, " +
+            " a.projektgruppe6, a.projektgruppe7, a.projektgruppe8, a.projektgruppe9, a.projektgruppe10, a.beskrivelse " +
+            " FROM aktiviteter as a WHERE a.id <> 0 AND a.job = "+ jobid + " and a.aktstatus = 1 AND (a.fakturerbar = 1 OR a.fakturerbar = 2) ORDER BY sortorder, a.navn ";
 
 
-             //sqlCmd += " LIMIT 20";
 
-             //outz_Log.LogError("A: " + sqlCmd);
 
-             OdbcConnection conn = new OdbcConnection(_connectionString);
+            //sqlCmd += " GROUP BY a.id ";
+
+            //if (sortColumns.Trim() == "")
+            //sqlCmd += " ORDER BY sortorder";
+            // else
+            //sqlCmd += " ORDER BY " + sortColumns;
+
+
+            sqlCmd += " LIMIT 20";
+
+            //outz_Log.LogError("A: " + sqlCmd);
+            //startRecord = 2;
+            OdbcConnection conn = new OdbcConnection(_connectionString);
 
              OdbcCommand cmd = new OdbcCommand(sqlCmd, conn);
              OdbcDataReader reader = null;
@@ -137,18 +149,21 @@ namespace TimeTag
 
                  while (reader.Read())
                  {
-                     if (count >= startRecord)
-                     {
-                         //if (Activities.Count < maxRecords)
-                             Activities.Add(GetActivityFromReader(reader));
-                         //else
-                         //    cmd.Cancel();
-                     }
 
-                     count++;
-                 }
 
-             }
+
+                    //if (count >= startRecord)
+                    //{
+                    //////if (Activities.Count < maxRecords)
+                    Activities.Add(GetActivityFromReader(reader));
+                    //////else
+                    //////    cmd.Cancel();
+                    //}
+
+                    count++;
+                }
+
+            }
              catch (OdbcException ex)
              {
                  throw new Exception("odbcException: " + ex.Message);
@@ -230,7 +245,7 @@ namespace TimeTag
              }
              catch (Exception ex)
              {
-                 throw new Exception("Problems in activity data factory => select all active activities positive only: " + ex.Message);
+                 throw new Exception("Problems in activity data factory => select all active activities NOT positive only: " + ex.Message);
              }
              finally
              {
@@ -270,8 +285,8 @@ namespace TimeTag
                  activity.ProjectGroup9 = reader.GetInt32(10);
              if (reader.GetValue(11) != DBNull.Value)
                  activity.ProjectGroup10 = reader.GetInt32(11);
-            if (reader.GetValue(12) != DBNull.Value)
-                activity.Description = System.Web.HttpUtility.HtmlDecode(reader.GetString(12));
+            //if (reader.GetValue(12) != DBNull.Value)
+            //   activity.Description = System.Web.HttpUtility.HtmlDecode(reader.GetString(12));
 
             return activity;
          }
