@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
+using TimeTag.App_Code;
 using TimeTag.Entity;
 
 namespace TimeTag.Helper
@@ -80,12 +80,12 @@ namespace TimeTag.Helper
             return new List<outz_JobCustomer>();
         }
 
-        public static List<outz_Activity> GetJobActivities(string selectedCustomerJob, List<outz_JobCustomer> jobs)
+        public static List<outz_Activity> GetJobActivities(string selectedCustomerJob, List<outz_JobCustomer> jobs, DateTime selectedDate)
         {
             try
             {
-                var activities = outz_JobCustomer.GetActivities(selectedCustomerJob, jobs);
-                if (activities == null)
+                List<outz_Activity> activities;
+                try
                 {
                     outz_TimeTag tt = new outz_TimeTag();
                     outz_Activity activity = new outz_Activity();
@@ -93,8 +93,24 @@ namespace TimeTag.Helper
                     var positive = true;
                     activity.GetAllNames(positive, tt.MID, jobid, tt.LTO, tt.IsNewDb);
                     activities = activity.ListAllActivities;
+                    if (tt.PA == "2")
+                    {
+                        foreach (var act in activities)
+                        {
+                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+
+                            var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
+                            act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+                        }
+                    }
                     outz_JobCustomer.SetActivities(selectedCustomerJob, jobs, activities);
                 }
+                catch
+                {
+                    activities = outz_JobCustomer.GetActivities(selectedCustomerJob, jobs);
+                }
+
                 return activities;
             }
             catch (Exception ex)

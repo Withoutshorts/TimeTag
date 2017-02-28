@@ -240,7 +240,7 @@ namespace TimeTag.Layout
                         return;
                     }
                     outz_TimeTag tt = new outz_TimeTag();
-                    autoActivity.ItemsSource = TimeReportHelper.GetJobActivities(autoCustomerJob.Text, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource);
+                    autoActivity.ItemsSource = TimeReportHelper.GetJobActivities(autoCustomerJob.Text, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource, DateTime.Now);
                     autoActivity.ItemFilter += TimeReportHelper.SearchActivity;
                 }
             }

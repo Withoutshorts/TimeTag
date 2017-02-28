@@ -3,11 +3,6 @@
   <assemblyIdentity name="TimeTag.application" version="1.0.0.9" publicKeyToken="0000000000000000" language="da" processorArchitecture="x86" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <description asmv2:publisher="Outzource" co.v1:suiteName="TimeOut" asmv2:product="TimeTag" asmv2:supportUrl="http://www.outzource.dk/kontakt.aspx" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" trustURLParameters="true" co.v1:createDesktopShortcut="true">
-    <subscription>
-      <update>
-        <beforeApplicationStartup />
-      </update>
-    </subscription>
     <deploymentProvider codebase="https://outzource.dk/timeout_xp/wwwroot/ver2_14/tools/TimeTag.application" />
   </deployment>
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
@@ -21,7 +16,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>+gJrTdXt+hYpFy6O0TL1Prwtx04=</dsig:DigestValue>
+        <dsig:DigestValue>IDXVhiVz0qFX4GI3hAgwkeNu3CU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
