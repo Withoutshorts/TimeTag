@@ -270,7 +270,7 @@ namespace TimeTag.Layout
 
         private void opdJobliste_Click(object sender, RoutedEventArgs e)
         {
-            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(); 
+            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(selectedDate.SelectedDate.Value); 
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
             txtrefresh.Visibility = System.Windows.Visibility.Visible;
             settimer();
@@ -358,7 +358,7 @@ namespace TimeTag.Layout
 
             selectedDate.SelectedDate = DateTime.Today;
             //Init auto complete box of customer and job
-            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs();
+            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(selectedDate.SelectedDate.Value);
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
         }
 
@@ -434,21 +434,9 @@ namespace TimeTag.Layout
                     var hoursReported = hoursService.GetReportedHours(selectedDate.SelectedDate.Value, tt.MID);
 
                     txtHoursReported.Text = hoursReported.ToString("N2");
-                    if (tt.PA == "2" && !string.IsNullOrEmpty(autoCustomerJob.Text))
+                    if (tt.PA == "2")
                     {
-                        var activity = new outz_Activity();
-                        string jobid = outz_JobCustomer.GetId(autoCustomerJob.Text, lstJobCustomerNames);
-                        activity.GetAllNames(true, tt.MID, jobid, tt.LTO, tt.IsNewDb);
-                        var activities = activity.ListAllActivities;
-
-                        foreach (var act in activities)
-                        {
-                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate.SelectedDate.Value);
-
-                            act.ReportedHours = hoursService.GetReportedHoursByActivity(tt.MID, act.Id, selectedDate.SelectedDate.Value); 
-                        }
-                        outz_JobCustomer.SetActivities(autoCustomerJob.Text, lstJobCustomerNames, activities);
+                        autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(selectedDate.SelectedDate.Value);
                     }
                 }
                 else

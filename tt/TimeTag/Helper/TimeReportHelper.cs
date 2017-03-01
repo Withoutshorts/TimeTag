@@ -57,7 +57,7 @@ namespace TimeTag.Helper
             }
         }
 
-        public static List<outz_JobCustomer> GetCustomerJobs()
+        public static List<outz_JobCustomer> GetCustomerJobs(DateTime selectedDate)
         {
             try
             {
@@ -66,6 +66,24 @@ namespace TimeTag.Helper
                 var sw = new Stopwatch();
                 sw.Start();
                 jc.GetAllNames(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb);
+                if (tt.PA == "2")
+                {
+                    foreach (var job in jc.ListAllJobCustomer)
+                    {
+                        outz_Activity activity = new outz_Activity();
+                        activity.GetAllNames(true, tt.MID, job.JobId.ToString(), tt.LTO, tt.IsNewDb);
+                        string jobid = outz_JobCustomer.GetId(job.IsCustomer ? job.CustomerName : job.JobName, jc.ListAllJobCustomer);
+                        foreach (var act in activity.ListAllActivities)
+                        {
+                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+
+                            var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
+                            act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+                        }
+                        job.Activities = activity.ListAllActivities;
+                    }
+                }
                 sw.Stop();
                 if (sw.ElapsedMilliseconds > 2000)
                 {
@@ -93,18 +111,6 @@ namespace TimeTag.Helper
                     var positive = true;
                     activity.GetAllNames(positive, tt.MID, jobid, tt.LTO, tt.IsNewDb);
                     activities = activity.ListAllActivities;
-                    if (tt.PA == "2")
-                    {
-                        foreach (var act in activities)
-                        {
-                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
-
-                            var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
-                            act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
-                        }
-                    }
-                    outz_JobCustomer.SetActivities(selectedCustomerJob, jobs, activities);
                 }
                 catch
                 {
