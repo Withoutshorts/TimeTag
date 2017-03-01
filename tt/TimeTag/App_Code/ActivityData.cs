@@ -192,14 +192,15 @@ namespace TimeTag
          /// <returns></returns>
          public List<outz_Activity> SelectAllActivitysNotPositive(string sortColumns, int startRecord, int maxRecords, int medid, int jobid)
          {
-             string sqlCmd = "SELECT DISTINCT a.id AS aid, navn AS aktnavn, projektgruppe1, "+
-                 "projektgruppe2, projektgruppe3,projektgruppe4, projektgruppe5, projektgruppe6,"+
-                 " projektgruppe7, projektgruppe8, projektgruppe9, projektgruppe10, a.beskrivelse FROM aktiviteter AS a" +
-                 " LEFT JOIN akt_typer AS at ON (at.aty_id = a.fakturerbar) " +
-                 " WHERE a.aktstatus = 1 and a.job = " + jobid + " and at.aty_on = 1 AND at.aty_on_realhours = 1 AND at.aty_hide_on_treg = 0";
 
 
-             sqlCmd += " GROUP BY a.id ";
+            string sqlCmd = "SELECT DISTINCT a.id AS aid, navn AS aktnavn, projektgruppe1, "+
+            "projektgruppe2, projektgruppe3,projektgruppe4, projektgruppe5, projektgruppe6,"+
+            " projektgruppe7, projektgruppe8, projektgruppe9, projektgruppe10, a.beskrivelse FROM aktiviteter AS a" +
+            " LEFT JOIN akt_typer AS at ON (at.aty_id = a.fakturerbar) " +
+            " WHERE a.aktstatus = 1 and a.job = " + jobid + " and at.aty_on = 1 AND at.aty_on_realhours = 1 AND at.aty_hide_on_treg = 0";
+
+            sqlCmd += " GROUP BY a.id ";
 
              if (sortColumns.Trim() == "")
                  sqlCmd += " ORDER BY sortorder";

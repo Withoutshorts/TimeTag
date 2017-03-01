@@ -107,15 +107,21 @@ namespace TimeTag.Layout
         {
             try
             {
+                
                 var sw = new Stopwatch();
                 string validationMessage;
                 sw.Start();
+             
                 if (!ValidateSubmittedData(out validationMessage))
                 {
+                    
                     ShowStatus(validationMessage);
                     outz_Log.LogError(validationMessage);
+                   
                     return;
                 }
+
+            
                 sw.Stop();
                 if (sw.ElapsedMilliseconds > 2000)
                 {
@@ -126,13 +132,26 @@ namespace TimeTag.Layout
                 {
                     jobName = ((outz_JobCustomer)autoCustomerJob.SelectedItem).GetName();
                 }
+
+              
+
                 var activityName = ConfigHelper.ListActivities ? autoActivityList.Text : autoActivity.Text;
+
+                
+                //return;
+                //TILFØJET
+                //UpdateReportedHours();
+                //sqlstatus.Text = "HEJ Der 7: " + activityName;
+
                 outz_TimeTag tt = new outz_TimeTag(jobName, ((outz_JobCustomer)autoCustomerJob.SelectedItem).ToString(), activityName, ConvertHoursToHoursMinutes(float.Parse(txtHours.Text)), txtComments.Text, lstJobCustomerNames, lstActivities, string.Empty, string.Empty, selectedDate.SelectedDate.Value);
                 tt.InitDataSet();
                 dsTimeTag = tt.DsTimeTag;
+                //sqlstatus.Text = dsTimeTag.hours;
+
                 sw.Restart();
                 string status = tt.UploadTime();
                 sw.Stop();
+
                 if (sw.ElapsedMilliseconds > 2000)
                 {
                     outz_Log.LogToFile(string.Format("UploadTime() has taken {0}ms", sw.ElapsedMilliseconds));
@@ -217,43 +236,72 @@ namespace TimeTag.Layout
                     return false;
                 }
             }
-            if (UserInfoProvider.PA == "2" && 
-                !string.IsNullOrEmpty(UserInfoProvider.LTO) && 
-                "bf".Equals(UserInfoProvider.LTO, StringComparison.InvariantCultureIgnoreCase) && 
+
+
+
+            if (UserInfoProvider.PA == "2" &&
+                !string.IsNullOrEmpty(UserInfoProvider.LTO) &&
+                "bf".Equals(UserInfoProvider.LTO, StringComparison.InvariantCultureIgnoreCase) &&
                 SelectedCustomerId.HasValue && SelectedActivityId.HasValue)
             {
                 var hoursReportedBefore = 0m;
                 var resourceHours = 0m;
-                try
-                {
-                    var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                    resourceHours = rdp.GetResourceHours(UserInfoProvider.MID, SelectedCustomerId.Value, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
 
-                    HoursService hoursService = new HoursService(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                    hoursReportedBefore = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
-                }
-                catch
+                bool isOnline = HelperInternet.IsOnline();
+                if (isOnline) // LAVER KUN Ressourcetimer tjk IF online = true
                 {
-                    var activities = outz_JobCustomer.GetActivities(autoCustomerJob.Text, lstJobCustomerNames);
-                    var activity = activities.FirstOrDefault(act => act.Id == SelectedActivityId.Value);
-                    if (activity != null)
+
+                    sqlstatus0.Text = "HEJ Der 8: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + " isOnline: " + isOnline;
+
+
+                    try
                     {
-                        resourceHours = activity.ResourceHours;
-                        hoursReportedBefore = activity.ReportedHours;
-                        if (decimal.Parse(txtHours.Text) + hoursReportedBefore <= resourceHours)
+                        var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                        resourceHours = rdp.GetResourceHours(UserInfoProvider.MID, SelectedCustomerId.Value, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
+
+                        HoursService hoursService = new HoursService(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                        hoursReportedBefore = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
+
+                        //bool isOnline = HelperInternet.IsOnline();
+                        //if (isOnline)
+                        //{
+
+                        sqlstatus1.Text = "HEJ Der 9: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + " isOnline: " + isOnline;
+
+
+
+                    }
+                    catch
+                    {
+
+                        sqlstatus2.Text = "HEJ Der 10: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + "txtHours: " + decimal.Parse(txtHours.Text) + " isOnline: " + isOnline;
+
+                        var activities = outz_JobCustomer.GetActivities(autoCustomerJob.Text, lstJobCustomerNames);
+                        var activity = activities.FirstOrDefault(act => act.Id == SelectedActivityId.Value);
+                        if (activity != null)
                         {
-                            activity.ReportedHours += decimal.Parse(txtHours.Text);
+                            resourceHours = activity.ResourceHours;
+                            hoursReportedBefore = activity.ReportedHours;
+
+                            if (decimal.Parse(txtHours.Text) + hoursReportedBefore <= resourceHours)
+                            {
+                                activity.ReportedHours += decimal.Parse(txtHours.Text);
+                            }
                         }
                     }
+                    if (decimal.Parse(txtHours.Text) + hoursReportedBefore > resourceHours)
+                    {
+
+                        sqlstatus3.Text = "HEJ Der 11: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + "txtHours: " + decimal.Parse(txtHours.Text);
+                        message = FindResource("ResourcesExceeded2") + " " + (resourceHours - (hoursReportedBefore + decimal.Parse(txtHours.Text))) + " " + FindResource("ResourcesExceeded3").ToString();
+                        return false;
+                    }
                 }
-                if (decimal.Parse(txtHours.Text) + hoursReportedBefore > resourceHours)
-                {
-                    message = FindResource("ResourcesExceeded2") + " " + (resourceHours - (hoursReportedBefore + decimal.Parse(txtHours.Text))) + " " + FindResource("ResourcesExceeded3").ToString();
-                    return false;
-                }
-            }
+
+            } // online
             message = string.Empty;
-            return true;
+                return true;
+            
         }
 
         private void timerShort_Tick(object sender, EventArgs e)
@@ -347,9 +395,9 @@ namespace TimeTag.Layout
 
         public void settimer()
         {
-            timerShort.Interval = new TimeSpan(0, 0, 0, 12);
-            timerShort.Tick += new EventHandler(timerShort_Tick);
-            timerShort.Start();
+        timerShort.Interval = new TimeSpan(0, 0, 0, 8);
+        timerShort.Tick += new EventHandler(timerShort_Tick);
+        timerShort.Start();
         }
 
         public void InitTimer()
@@ -434,19 +482,23 @@ namespace TimeTag.Layout
                     var hoursReported = hoursService.GetReportedHours(selectedDate.SelectedDate.Value, tt.MID);
 
                     txtHoursReported.Text = hoursReported.ToString("N2");
-                    if (tt.PA == "2" && !string.IsNullOrEmpty(autoCustomerJob.Text))
+                    //sqlstatus.Text = "HEJ Der 10: " + autoCustomerJob.Text + " bool: " + !string.IsNullOrEmpty(autoCustomerJob.Text);
+                    if (tt.PA == "2" && !string.IsNullOrEmpty(autoCustomerJob.Text)) // 
                     {
                         var activity = new outz_Activity();
                         string jobid = outz_JobCustomer.GetId(autoCustomerJob.Text, lstJobCustomerNames);
                         activity.GetAllNames(true, tt.MID, jobid, tt.LTO, tt.IsNewDb);
                         var activities = activity.ListAllActivities;
 
+                        //sqlstatus.Text = "HEJ Der 11: ";
+
                         foreach (var act in activities)
                         {
                             var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
                             act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate.SelectedDate.Value);
 
-                            act.ReportedHours = hoursService.GetReportedHoursByActivity(tt.MID, act.Id, selectedDate.SelectedDate.Value); 
+                            act.ReportedHours = hoursService.GetReportedHoursByActivity(tt.MID, act.Id, selectedDate.SelectedDate.Value);
+                            
                         }
                         outz_JobCustomer.SetActivities(autoCustomerJob.Text, lstJobCustomerNames, activities);
                     }

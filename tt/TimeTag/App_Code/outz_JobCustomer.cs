@@ -117,13 +117,14 @@ namespace TimeTag
 
                 foreach (outz_Job job in customer.JobList)
                 {
-                    var customerJob = new outz_JobCustomer(job.CustomerNo, job.CustomerName, job.JobId, job.JobName, job.JobNo, job.CustomerInit);
+                var customerJob = new outz_JobCustomer(job.CustomerNo, job.CustomerName, job.JobId, job.JobName, job.JobNo, job.CustomerInit);
                     outz_Activity activity = new outz_Activity();
                     activity.GetAllNames(true, mid, job.JobId.ToString(), lto, isNewDb);
                     customerJob.Activities = activity.ListAllActivities;
                     this.ListAllJobCustomer.Add(customerJob);
-                    //this.ListAllJobCustomer.Add(new outz_JobCustomer(customer.CustomerNo, customer.CustomerName, customer.CustomerInit, customer.JobList));
-                    //  this.ListAllJobCustomer.Add(new outz_JobCustomer(job.CustomerNo, "", job.JobId, job.JobName, job.JobNo, job.CustomerInit));
+
+                    //////this.ListAllJobCustomer.Add(new outz_JobCustomer(customer.CustomerNo, customer.CustomerName, customer.CustomerInit, customer.JobList));
+                    //////this.ListAllJobCustomer.Add(new outz_JobCustomer(job.CustomerNo, "", job.JobId, job.JobName, job.JobNo, job.CustomerInit));
                 }
             }
         }

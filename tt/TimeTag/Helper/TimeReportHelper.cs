@@ -93,7 +93,7 @@ namespace TimeTag.Helper
                     var positive = true;
                     activity.GetAllNames(positive, tt.MID, jobid, tt.LTO, tt.IsNewDb);
                     activities = activity.ListAllActivities;
-                    if (tt.PA == "2")
+                    if (tt.PA == "22")
                     {
                         foreach (var act in activities)
                         {

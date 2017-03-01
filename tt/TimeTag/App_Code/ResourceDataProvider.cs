@@ -55,6 +55,7 @@ namespace TimeTag.App_Code
                 conn.Close();
             }
 
+            
             return result.HasValue ? result.Value : 0m;
         }
     }
