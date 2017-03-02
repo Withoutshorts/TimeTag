@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
-  <asmv1:assemblyIdentity name="TimeTag.exe" version="1.0.0.9" publicKeyToken="0000000000000000" language="da" processorArchitecture="x86" type="win32" />
-  <description asmv2:iconFile="Images\outzource.ico" asmv2:publisher="Outzource" co.v1:suiteName="TimeOut" asmv2:product="TimeTag" asmv2:supportUrl="http://www.outzource.dk/kontakt.aspx" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <asmv1:assemblyIdentity name="TimeTag.exe" version="1.0.2.228" publicKeyToken="0000000000000000" language="da" processorArchitecture="x86" type="win32" />
+  <description asmv2:iconFile="Images\outzource.ico" asmv2:publisher="Outzource" co.v1:suiteName="TimeOut" asmv2:product="TimeTag BF" asmv2:supportUrl="http://www.outzource.dk/kontakt.aspx" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="TimeTag" version="1.0.0.4" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="TimeTag" version="1.0.2.228" language="neutral" processorArchitecture="x86" />
     <commandLine file="TimeTag.exe" parameters="" />
   </entryPoint>
   <co.v1:useManifestForTrust xmlns="urn:schemas-microsoft-com:asm.v1" />
@@ -80,14 +80,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TimeTag.exe" size="334848">
-      <assemblyIdentity name="TimeTag" version="1.0.0.4" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TimeTag.exe" size="338944">
+      <assemblyIdentity name="TimeTag" version="1.0.2.228" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>WvInUjP3YgD9ZOWCepCws6tU0gA=</dsig:DigestValue>
+        <dsig:DigestValue>A3T0N9OzyVL/fjHW/4WnPmpXUcQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -118,7 +118,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>9Lh33po79Rm7zY872FleYwuz4EY=</dsig:DigestValue>
+      <dsig:DigestValue>xwFDy7dBsDQ2mXMgwnaCYAImRYw=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>
