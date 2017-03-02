@@ -57,7 +57,7 @@ namespace TimeTag.Helper
             }
         }
 
-        public static List<outz_JobCustomer> GetCustomerJobs()
+        public static List<outz_JobCustomer> xGetCustomerJobs()
         {
             try
             {
@@ -79,6 +79,49 @@ namespace TimeTag.Helper
             }
             return new List<outz_JobCustomer>();
         }
+
+
+        public static List<outz_JobCustomer> GetCustomerJobs(DateTime selectedDate)
+        {
+            try
+            {
+                outz_TimeTag tt = new outz_TimeTag();
+                outz_JobCustomer jc = new outz_JobCustomer();
+                var sw = new Stopwatch();
+                sw.Start();
+                jc.GetAllNames(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb);
+                if (tt.PA == "2")
+                {
+                    foreach (var job in jc.ListAllJobCustomer)
+                    {
+                        outz_Activity activity = new outz_Activity();
+                        activity.GetAllNames(true, tt.MID, job.JobId.ToString(), tt.LTO, tt.IsNewDb);
+                        string jobid = outz_JobCustomer.GetId(job.IsCustomer ? job.CustomerName : job.JobName, jc.ListAllJobCustomer);
+                        foreach (var act in activity.ListAllActivities)
+                        {
+                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+
+                            var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
+                            act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+                        }
+                        job.Activities = activity.ListAllActivities;
+                    }
+                }
+                sw.Stop();
+                if (sw.ElapsedMilliseconds > 2000)
+                {
+                    outz_Log.LogToFile(string.Format("ValidateSubmittedData() has taken {0}ms", sw.ElapsedMilliseconds));
+                }
+                return jc.ListAllJobCustomer;
+            }
+            catch (Exception ex)
+            {
+                outz_Log.LogError("Init auto compelete customer job issue: " + ex.Message);
+            }
+            return new List<outz_JobCustomer>();
+        }
+
 
         public static List<outz_Activity> GetJobActivities(string selectedCustomerJob, List<outz_JobCustomer> jobs, DateTime selectedDate)
         {
