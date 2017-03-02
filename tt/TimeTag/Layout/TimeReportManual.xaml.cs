@@ -274,8 +274,7 @@ namespace TimeTag.Layout
                     catch
                     {
 
-                        sqlstatus2.Text = "HEJ Der 10: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + "txtHours: " + decimal.Parse(txtHours.Text) + " isOnline: " + isOnline;
-
+                        
                         var activities = outz_JobCustomer.GetActivities(autoCustomerJob.Text, lstJobCustomerNames);
                         var activity = activities.FirstOrDefault(act => act.Id == SelectedActivityId.Value);
                         if (activity != null)
@@ -288,8 +287,11 @@ namespace TimeTag.Layout
                                 activity.ReportedHours += decimal.Parse(txtHours.Text);
                             }
                         }
-                    }
-                    if (decimal.Parse(txtHours.Text) + hoursReportedBefore > resourceHours)
+
+                    sqlstatus2.Text = "HEJ Der 10: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + "txtHours: " + decimal.Parse(txtHours.Text) + " isOnline: " + isOnline;
+
+                }
+                if (decimal.Parse(txtHours.Text) + hoursReportedBefore > resourceHours)
                     {
 
                         sqlstatus3.Text = "HEJ Der 11: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + "txtHours: " + decimal.Parse(txtHours.Text);
