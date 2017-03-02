@@ -248,10 +248,10 @@ namespace TimeTag.Layout
                 var resourceHours = 0m;
 
                 bool isOnline = HelperInternet.IsOnline();
-                if (isOnline) // LAVER KUN Ressourcetimer tjk IF online = true
-                {
+                //if (isOnline) // LAVER KUN Ressourcetimer tjk IF online = true
+                //{
 
-                    sqlstatus0.Text = "HEJ Der 8: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + " isOnline: " + isOnline;
+                sqlstatus0.Text = "HEJ Der 8: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + " isOnline: " + isOnline;
 
 
                     try
@@ -298,7 +298,7 @@ namespace TimeTag.Layout
                     }
                 }
 
-            } // online
+            //} // online
             message = string.Empty;
                 return true;
             
@@ -318,7 +318,7 @@ namespace TimeTag.Layout
 
         private void opdJobliste_Click(object sender, RoutedEventArgs e)
         {
-            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(); 
+            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(selectedDate.SelectedDate.Value); 
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
             txtrefresh.Visibility = System.Windows.Visibility.Visible;
             settimer();
@@ -406,7 +406,7 @@ namespace TimeTag.Layout
 
             selectedDate.SelectedDate = DateTime.Today;
             //Init auto complete box of customer and job
-            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs();
+            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(selectedDate.SelectedDate.Value);
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
         }
 
