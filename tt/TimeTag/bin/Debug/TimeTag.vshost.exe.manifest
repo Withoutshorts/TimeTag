@@ -80,14 +80,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TimeTag.exe" size="338944">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="TimeTag.exe" size="340480">
       <assemblyIdentity name="TimeTag" version="1.0.2.228" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>A3T0N9OzyVL/fjHW/4WnPmpXUcQ=</dsig:DigestValue>
+        <dsig:DigestValue>2A7KRHLijTvNZC7IZb/t4YB0MHI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

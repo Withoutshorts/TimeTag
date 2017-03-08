@@ -90,20 +90,42 @@ namespace TimeTag.Helper
                 var sw = new Stopwatch();
                 sw.Start();
                 jc.GetAllNames(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb);
-                if (tt.PA == "2")
+                if (tt.PA == "22")
                 {
                     foreach (var job in jc.ListAllJobCustomer)
                     {
                         outz_Activity activity = new outz_Activity();
                         activity.GetAllNames(true, tt.MID, job.JobId.ToString(), tt.LTO, tt.IsNewDb);
+                        
                         string jobid = outz_JobCustomer.GetId(job.IsCustomer ? job.CustomerName : job.JobName, jc.ListAllJobCustomer);
                         foreach (var act in activity.ListAllActivities)
                         {
-                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
 
-                            var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
-                            act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+                            //bool isOnline = HelperInternet.IsOnline();
+                            //if (isOnline)
+                            //{ // LAVER KUN Ressourcetimer tjk IF online = true
+                            //var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                            //act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+                            //act.ResourceHours = act.ResourceHours;
+                            //}
+                            //else {
+                            //act.ResourceHours = 250;
+                            //}
+
+                            //var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
+                            //act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+
+                            try
+                            {
+                                var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                                act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+                                act.ResourceHours = act.ResourceHours;
+                            }
+                            catch
+                            {
+
+                            }
+                           
                         }
                         job.Activities = activity.ListAllActivities;
                     }
@@ -136,15 +158,24 @@ namespace TimeTag.Helper
                     var positive = true;
                     activity.GetAllNames(positive, tt.MID, jobid, tt.LTO, tt.IsNewDb);
                     activities = activity.ListAllActivities;
-                    if (tt.PA == "22")
+                    if (tt.PA == "2")
                     {
                         foreach (var act in activities)
                         {
-                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+                            try
+                            {
+                                var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                                act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+                                act.ResourceHours = act.ResourceHours;
+                            }
+                            catch
+                            {
 
-                            var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
-                            act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+                            }
+
+                            //var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
+                            //act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+                            //act.ReportedHours = 1;
                         }
                     }
                     outz_JobCustomer.SetActivities(selectedCustomerJob, jobs, activities);
