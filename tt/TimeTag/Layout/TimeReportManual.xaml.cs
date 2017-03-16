@@ -359,7 +359,8 @@ namespace TimeTag.Layout
                         outz_TimeTag tt = new outz_TimeTag();
                         var sw = new Stopwatch();
                         sw.Start();
-                        activities = TimeReportHelper.GetJobActivities(autoCustomerJob.Text, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource, selectedDate.SelectedDate.Value);
+                        //activities = TimeReportHelper.GetJobActivities(autoCustomerJob.Text, (List<outz_JobCustomer>)autoCustomerJob.ItemsSource, selectedDate.SelectedDate.Value);
+                        activities = ((outz_JobCustomer)e.AddedItems[0]).Activities;
                         sw.Stop();
                         if (sw.ElapsedMilliseconds > 2000)
                         {
@@ -421,6 +422,8 @@ namespace TimeTag.Layout
             RunInternetStatusCheck();
 
             selectedDate.SelectedDate = DateTime.Today;
+            selectedDate.SelectedDateChanged += selectedDate_SelectedDateChanged;
+
             //Init auto complete box of customer and job
             autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(selectedDate.SelectedDate.Value);
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;

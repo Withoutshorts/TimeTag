@@ -88,53 +88,63 @@ namespace TimeTag.Helper
                 outz_TimeTag tt = new outz_TimeTag();
                 outz_JobCustomer jc = new outz_JobCustomer();
                 var sw = new Stopwatch();
+                //sw.Start();
+                //jc.GetAllNames(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb);
+                //if (tt.PA == "22")
+                //{
+                //    foreach (var job in jc.ListAllJobCustomer)
+                //    {
+                //        outz_Activity activity = new outz_Activity();
+                //        activity.GetAllNames(true, tt.MID, job.JobId.ToString(), tt.LTO, tt.IsNewDb);
+
+                //        string jobid = outz_JobCustomer.GetId(job.IsCustomer ? job.CustomerName : job.JobName, jc.ListAllJobCustomer);
+                //        foreach (var act in activity.ListAllActivities)
+                //        {
+
+                //            //bool isOnline = HelperInternet.IsOnline();
+                //            //if (isOnline)
+                //            //{ // LAVER KUN Ressourcetimer tjk IF online = true
+                //            //var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                //            //act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+                //            //act.ResourceHours = act.ResourceHours;
+                //            //}
+                //            //else {
+                //            //act.ResourceHours = 250;
+                //            //}
+
+                //            //var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
+                //            //act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+
+                //            try
+                //            {
+                //                var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                //                act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+                //                act.ResourceHours = act.ResourceHours;
+                //            }
+                //            catch
+                //            {
+
+                //            }
+
+                //        }
+                //        job.Activities = activity.ListAllActivities;
+                //    }
+                //}
+                //sw.Stop();
+                //if (sw.ElapsedMilliseconds > 2000)
+                //{
+                //    outz_Log.LogToFile(string.Format("ValidateSubmittedData() has taken {0}ms", sw.ElapsedMilliseconds));
+                //}
+                //return jc.ListAllJobCustomer;
+
                 sw.Start();
-                jc.GetAllNames(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb);
-                if (tt.PA == "22")
-                {
-                    foreach (var job in jc.ListAllJobCustomer)
-                    {
-                        outz_Activity activity = new outz_Activity();
-                        activity.GetAllNames(true, tt.MID, job.JobId.ToString(), tt.LTO, tt.IsNewDb);
-                        
-                        string jobid = outz_JobCustomer.GetId(job.IsCustomer ? job.CustomerName : job.JobName, jc.ListAllJobCustomer);
-                        foreach (var act in activity.ListAllActivities)
-                        {
-
-                            //bool isOnline = HelperInternet.IsOnline();
-                            //if (isOnline)
-                            //{ // LAVER KUN Ressourcetimer tjk IF online = true
-                            //var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                            //act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
-                            //act.ResourceHours = act.ResourceHours;
-                            //}
-                            //else {
-                            //act.ResourceHours = 250;
-                            //}
-
-                            //var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
-                            //act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
-
-                            try
-                            {
-                                var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                                act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
-                                act.ResourceHours = act.ResourceHours;
-                            }
-                            catch
-                            {
-
-                            }
-                           
-                        }
-                        job.Activities = activity.ListAllActivities;
-                    }
-                }
+                jc.GetAllJobs(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb, selectedDate);
                 sw.Stop();
                 if (sw.ElapsedMilliseconds > 2000)
                 {
                     outz_Log.LogToFile(string.Format("ValidateSubmittedData() has taken {0}ms", sw.ElapsedMilliseconds));
                 }
+
                 return jc.ListAllJobCustomer;
             }
             catch (Exception ex)
