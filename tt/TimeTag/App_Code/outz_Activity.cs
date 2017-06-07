@@ -167,9 +167,8 @@ namespace TimeTag
 
         private static bool RequireAllFields()
         {
-            string[] customers = HelperSetting.ReadLines(Properties.Settings.Default.UserInfo, 3);
             string[] requireAllFields = HelperSetting.ReadLines(Properties.Settings.Default.RequireAllFields, 10);
-            var currentCustomer = customers[0].Split(':').Skip(1).ToArray()[0];
+            var currentCustomer = HelperSetting.UserInfo[0].Split(':').Skip(1).ToArray()[0];
             return string.IsNullOrEmpty(currentCustomer) || !requireAllFields.Any(s => currentCustomer.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
     }

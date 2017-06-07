@@ -92,10 +92,12 @@
   <ItemGroup>
     <Reference Include="NuGet.Core, Version=1.6.30117.9648, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
@@ -150,6 +152,12 @@
     <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Helper\TimeReportHelper.cs" />
     <Compile Include="Entity\InternetStatus.cs" />
+    <Compile Include="Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installer.Designer.cs">
+      <DependentUpon>Installer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Layout\TimeReportStopwatch.xaml.cs">
       <DependentUpon>TimeReportStopwatch.xaml</DependentUpon>
     </Compile>

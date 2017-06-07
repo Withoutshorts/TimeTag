@@ -303,5 +303,11 @@ namespace TimeTag
         }
 
         public static string jobnavnsog { get; set; }
+
+        public void GetAllJobs(bool? onlyActiveJobList, string lto, string mid, bool isNewDb, DateTime date)
+        {
+            JobCustomerData jc = new JobCustomerData(lto, isNewDb);
+            this.ListAllJobCustomer = jc.SelectAllJobs(mid, 0, 50, date);
+        }
     }
 }

@@ -21,8 +21,7 @@ namespace TimeTag
         public ErrorLog()
         {
             InitializeComponent();
-
-            listBox1.ItemsSource = Properties.Settings.Default.ErrorLog;
+            this.BindData();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -32,9 +31,13 @@ namespace TimeTag
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ErrorLog.Clear();
-            Properties.Settings.Default.Save();
-            listBox1.Items.Refresh();
+            HelperSetting.ClearLog(HelperSetting.ErrorLogPath);
+            this.BindData();
+        }
+
+        private void BindData()
+        {
+            lstErrorLog.ItemsSource = HelperSetting.ReadSettings(HelperSetting.ErrorLogPath);
         }
     }
 }

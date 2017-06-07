@@ -40,6 +40,8 @@ namespace TimeTag
                     break;
             }
 
+            HelperSetting.LoadSettings();
+
             //Get url parameters and save to application setting
             this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
 
@@ -58,7 +60,8 @@ namespace TimeTag
         {
             try
             {
-                if (Properties.Settings.Default.UserInfo != null && (Properties.Settings.Default.UserInfo.Count < 2 || string.IsNullOrWhiteSpace(Properties.Settings.Default.UserInfo[1].Split(new[] { ':' })[1])))
+                string[] infos = HelperSetting.UserInfo;
+                if (infos != null && (infos.Length < 2 || string.IsNullOrWhiteSpace(infos[1].Split(new[] { ':' })[1])))
                 {
                     UserInfo userInfo = new UserInfo();
                     //userInfo.Owner = Window.GetWindow(this);
@@ -82,6 +85,7 @@ namespace TimeTag
                 {
                     outz_Log.LogError("Init issue: " + ex.Message);
                 }
+
                 outz_User user = new outz_User(GetQueryStringParameters());
                 user.SaveToFile();
                 ShowLayout();

@@ -37,7 +37,7 @@ namespace TimeTag.Helper
         {
             try
             {
-                string[] timeLines = HelperSetting.ReadLines(Properties.Settings.Default.TimeOffline, 10);
+                string[] timeLines = HelperSetting.ReadSettings(HelperSetting.TimeOfflinePath, 10);
 
                 foreach (string timeLine in timeLines)
                 {
@@ -64,31 +64,36 @@ namespace TimeTag.Helper
                 outz_TimeTag tt = new outz_TimeTag();
                 outz_JobCustomer jc = new outz_JobCustomer();
                 var sw = new Stopwatch();
-                sw.Start();
-                jc.GetAllNames(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb);
-                if (tt.PA == "2")
-                {
-                    foreach (var job in jc.ListAllJobCustomer)
-                    {
-                        outz_Activity activity = new outz_Activity();
-                        activity.GetAllNames(true, tt.MID, job.JobId.ToString(), tt.LTO, tt.IsNewDb);
-                        string jobid = outz_JobCustomer.GetId(job.IsCustomer ? job.CustomerName : job.JobName, jc.ListAllJobCustomer);
-                        foreach (var act in activity.ListAllActivities)
-                        {
-                            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-                            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
+                //sw.Start();
+                //jc.GetAllNames(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb);
+                //if (tt.PA == "2")
+                //{
+                //    foreach (var job in jc.ListAllJobCustomer)
+                //    {
+                //        outz_Activity activity = new outz_Activity();
+                //        activity.GetAllNames(true, tt.MID, job.JobId.ToString(), tt.LTO, tt.IsNewDb);
+                //        string jobid = outz_JobCustomer.GetId(job.IsCustomer ? job.CustomerName : job.JobName, jc.ListAllJobCustomer);
+                //        foreach (var act in activity.ListAllActivities)
+                //        {
+                //            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
+                //            act.ResourceHours = rdp.GetResourceHours(UserInfoProvider.MID, int.Parse(jobid), act.Id, selectedDate);
 
-                            var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
-                            act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
-                        }
-                        job.Activities = activity.ListAllActivities;
-                    }
-                }
+                //            var hoursService = new HoursService(tt.LTO, tt.IsNewDb);
+                //            act.ReportedHours = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, act.Id, selectedDate);
+                //        }
+                //        job.Activities = activity.ListAllActivities;
+                //    }
+                //}
+
+                sw.Start();
+                jc.GetAllJobs(tt.PA == "1", tt.LTO, tt.MID, tt.IsNewDb, selectedDate);
+
                 sw.Stop();
                 if (sw.ElapsedMilliseconds > 2000)
                 {
                     outz_Log.LogToFile(string.Format("ValidateSubmittedData() has taken {0}ms", sw.ElapsedMilliseconds));
                 }
+
                 return jc.ListAllJobCustomer;
             }
             catch (Exception ex)
@@ -138,9 +143,8 @@ namespace TimeTag.Helper
 
         public static bool RequireAllFields()
         {
-            string[] customers = HelperSetting.ReadLines(Properties.Settings.Default.UserInfo, 3);
             string[] requireAllFields = HelperSetting.ReadLines(Properties.Settings.Default.RequireAllFields, 10);
-            var currentCustomer = customers[0].Split(':').Skip(1).ToArray()[0];
+            var currentCustomer = HelperSetting.UserInfo[0].Split(':').Skip(1).ToArray()[0];
             return string.IsNullOrEmpty(currentCustomer) || !requireAllFields.Any(s => currentCustomer.Equals(s, StringComparison.InvariantCultureIgnoreCase));
         }
     }
