@@ -27,13 +27,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_13464AF71D45C11C8E69E68235E157AD"
+        "MsmKey" = "8:_1D4B9E47980C35F74C5E49157568EC44"
         "OwnerKey" = "8:_0C6A8CB25DC84C829D6720F205EE3A0A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_22D44DA700B9A54209917531B7BFDFF0"
+        "MsmKey" = "8:_324B318AEE1D33C7FEEF1CABADE2248A"
         "OwnerKey" = "8:_0C6A8CB25DC84C829D6720F205EE3A0A"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -57,7 +57,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_84186191A2B30E7EB268014AD3156614"
+        "MsmKey" = "8:_75BB985F1198A42C513C1B1777F6B71A"
         "OwnerKey" = "8:_0C6A8CB25DC84C829D6720F205EE3A0A"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -75,20 +75,20 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_ADE7189A4BFD697C202C88E4A99D42E0"
-        "OwnerKey" = "8:_13464AF71D45C11C8E69E68235E157AD"
+        "MsmKey" = "8:_CFD85F9E051C9F0AE911C8DE78FF0B43"
+        "OwnerKey" = "8:_1D4B9E47980C35F74C5E49157568EC44"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_ADE7189A4BFD697C202C88E4A99D42E0"
+        "MsmKey" = "8:_CFD85F9E051C9F0AE911C8DE78FF0B43"
         "OwnerKey" = "8:_0C6A8CB25DC84C829D6720F205EE3A0A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_ADE7189A4BFD697C202C88E4A99D42E0"
-        "OwnerKey" = "8:_84186191A2B30E7EB268014AD3156614"
+        "MsmKey" = "8:_CFD85F9E051C9F0AE911C8DE78FF0B43"
+        "OwnerKey" = "8:_324B318AEE1D33C7FEEF1CABADE2248A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -106,25 +106,25 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_84186191A2B30E7EB268014AD3156614"
+        "OwnerKey" = "8:_75BB985F1198A42C513C1B1777F6B71A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_13464AF71D45C11C8E69E68235E157AD"
+        "OwnerKey" = "8:_324B318AEE1D33C7FEEF1CABADE2248A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_ADE7189A4BFD697C202C88E4A99D42E0"
+        "OwnerKey" = "8:_1D4B9E47980C35F74C5E49157568EC44"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_22D44DA700B9A54209917531B7BFDFF0"
+        "OwnerKey" = "8:_CFD85F9E051C9F0AE911C8DE78FF0B43"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -135,7 +135,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Install.msi"
+        "OutputFilename" = "8:Debug\\Install_timeTag.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -256,14 +256,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_13464AF71D45C11C8E69E68235E157AD"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1D4B9E47980C35F74C5E49157568EC44"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_13464AF71D45C11C8E69E68235E157AD"
+                    "_1D4B9E47980C35F74C5E49157568EC44"
                     {
                     "Name" = "8:System.Windows.Controls.Input.Toolkit.dll"
                     "Attributes" = "3:512"
@@ -287,20 +287,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_22D44DA700B9A54209917531B7BFDFF0"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_324B318AEE1D33C7FEEF1CABADE2248A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NuGet.Core, Version=1.6.30117.9648, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_22D44DA700B9A54209917531B7BFDFF0"
+                    "_324B318AEE1D33C7FEEF1CABADE2248A"
                     {
-                    "Name" = "8:NuGet.Core.dll"
+                    "Name" = "8:System.Windows.Controls.Layout.Toolkit.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:NuGet.Core.dll"
+            "SourcePath" = "8:System.Windows.Controls.Layout.Toolkit.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ABF2F137A14AEC94F44727E52E1810"
@@ -378,20 +378,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_84186191A2B30E7EB268014AD3156614"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_75BB985F1198A42C513C1B1777F6B71A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:NuGet.Core, Version=1.6.30117.9648, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_84186191A2B30E7EB268014AD3156614"
+                    "_75BB985F1198A42C513C1B1777F6B71A"
                     {
-                    "Name" = "8:System.Windows.Controls.Layout.Toolkit.dll"
+                    "Name" = "8:NuGet.Core.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Windows.Controls.Layout.Toolkit.dll"
+            "SourcePath" = "8:NuGet.Core.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ABF2F137A14AEC94F44727E52E1810"
@@ -449,14 +449,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_ADE7189A4BFD697C202C88E4A99D42E0"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CFD85F9E051C9F0AE911C8DE78FF0B43"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_ADE7189A4BFD697C202C88E4A99D42E0"
+                    "_CFD85F9E051C9F0AE911C8DE78FF0B43"
                     {
                     "Name" = "8:WPFToolkit.dll"
                     "Attributes" = "3:512"

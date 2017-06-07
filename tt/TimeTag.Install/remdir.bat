@@ -1,1 +1,1 @@
-@RD /S /Q "%USERPROFILE%\AppData\Local\Outzource"
+::del /s /q "%USERPROFILE%\AppData\Local\Outzource"
