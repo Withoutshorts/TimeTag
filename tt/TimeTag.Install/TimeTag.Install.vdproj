@@ -21,7 +21,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3B7901024FCBD96CD19D33B1499DDEC2"
+        "MsmKey" = "8:_0C8E03BBCB1D8D55661D5DA9241E7B79"
+        "OwnerKey" = "8:_05786C5901E14FB19B504E04CEF22F02"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_249B17539D2B905AE1169760A119108A"
         "OwnerKey" = "8:_05786C5901E14FB19B504E04CEF22F02"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -33,20 +39,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_6B8378FE9E02359AAC6596B28FE5D613"
-        "OwnerKey" = "8:_E7078BB4A54B0F55EC45F89772835E0F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6B8378FE9E02359AAC6596B28FE5D613"
+        "MsmKey" = "8:_6CD5AA6F0AF9D69FEB251B5D5DE6C6B9"
         "OwnerKey" = "8:_05786C5901E14FB19B504E04CEF22F02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_6B8378FE9E02359AAC6596B28FE5D613"
-        "OwnerKey" = "8:_3B7901024FCBD96CD19D33B1499DDEC2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -69,50 +63,56 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_98F316EC6E8819F900B50A7DCA9EDA1B"
-        "OwnerKey" = "8:_05786C5901E14FB19B504E04CEF22F02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_A76933F7D5014A38ABF61ECB704E7CA7"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E7078BB4A54B0F55EC45F89772835E0F"
+        "MsmKey" = "8:_D3712F43B27576F02B292B7EC45A2A1B"
+        "OwnerKey" = "8:_249B17539D2B905AE1169760A119108A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D3712F43B27576F02B292B7EC45A2A1B"
+        "OwnerKey" = "8:_05786C5901E14FB19B504E04CEF22F02"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D3712F43B27576F02B292B7EC45A2A1B"
+        "OwnerKey" = "8:_6CD5AA6F0AF9D69FEB251B5D5DE6C6B9"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_05786C5901E14FB19B504E04CEF22F02"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_05786C5901E14FB19B504E04CEF22F02"
+        "OwnerKey" = "8:_0C8E03BBCB1D8D55661D5DA9241E7B79"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_98F316EC6E8819F900B50A7DCA9EDA1B"
+        "OwnerKey" = "8:_6CD5AA6F0AF9D69FEB251B5D5DE6C6B9"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_3B7901024FCBD96CD19D33B1499DDEC2"
+        "OwnerKey" = "8:_249B17539D2B905AE1169760A119108A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E7078BB4A54B0F55EC45F89772835E0F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6B8378FE9E02359AAC6596B28FE5D613"
+        "OwnerKey" = "8:_D3712F43B27576F02B292B7EC45A2A1B"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -266,20 +266,51 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3B7901024FCBD96CD19D33B1499DDEC2"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0C8E03BBCB1D8D55661D5DA9241E7B79"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:NuGet.Core, Version=1.6.30117.9648, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_3B7901024FCBD96CD19D33B1499DDEC2"
+                    "_0C8E03BBCB1D8D55661D5DA9241E7B79"
                     {
-                    "Name" = "8:System.Windows.Controls.Layout.Toolkit.dll"
+                    "Name" = "8:NuGet.Core.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Windows.Controls.Layout.Toolkit.dll"
+            "SourcePath" = "8:NuGet.Core.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_86ABF2F137A14AEC94F44727E52E1810"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_249B17539D2B905AE1169760A119108A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_249B17539D2B905AE1169760A119108A"
+                    {
+                    "Name" = "8:System.Windows.Controls.Input.Toolkit.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Windows.Controls.Input.Toolkit.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ABF2F137A14AEC94F44727E52E1810"
@@ -317,20 +348,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6B8378FE9E02359AAC6596B28FE5D613"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6CD5AA6F0AF9D69FEB251B5D5DE6C6B9"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6B8378FE9E02359AAC6596B28FE5D613"
+                    "_6CD5AA6F0AF9D69FEB251B5D5DE6C6B9"
                     {
-                    "Name" = "8:WPFToolkit.dll"
+                    "Name" = "8:System.Windows.Controls.Layout.Toolkit.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:WPFToolkit.dll"
+            "SourcePath" = "8:System.Windows.Controls.Layout.Toolkit.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ABF2F137A14AEC94F44727E52E1810"
@@ -408,37 +439,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_98F316EC6E8819F900B50A7DCA9EDA1B"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NuGet.Core, Version=1.6.30117.9648, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_98F316EC6E8819F900B50A7DCA9EDA1B"
-                    {
-                    "Name" = "8:NuGet.Core.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:NuGet.Core.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_86ABF2F137A14AEC94F44727E52E1810"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A76933F7D5014A38ABF61ECB704E7CA7"
             {
             "SourcePath" = "8:..\\vendor\\mysql-connector-odbc-3.51.30-winx64.msi"
@@ -459,20 +459,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E7078BB4A54B0F55EC45F89772835E0F"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D3712F43B27576F02B292B7EC45A2A1B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E7078BB4A54B0F55EC45F89772835E0F"
+                    "_D3712F43B27576F02B292B7EC45A2A1B"
                     {
-                    "Name" = "8:System.Windows.Controls.Input.Toolkit.dll"
+                    "Name" = "8:WPFToolkit.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Windows.Controls.Input.Toolkit.dll"
+            "SourcePath" = "8:WPFToolkit.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ABF2F137A14AEC94F44727E52E1810"
@@ -546,15 +546,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:TimeTag"
-        "ProductCode" = "8:{D0ABA5B6-A0E0-4447-BBF7-D5D363C34603}"
-        "PackageCode" = "8:{29B6A95A-27BD-4EA1-90BB-D8A8FED56186}"
+        "ProductCode" = "8:{5C24FCE5-99A6-4B58-B2CC-6389569F9B7A}"
+        "PackageCode" = "8:{DA56E298-06FA-4B92-9C21-79D8FBD32129}"
         "UpgradeCode" = "8:{0BD2053A-89A4-43CF-9EE3-A26D75B5F796}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:Outzource"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1096,7 +1096,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_05786C5901E14FB19B504E04CEF22F02"
             {
-            "SourcePath" = "8:..\\TimeTag\\obj\\x86\\Debug\\TimeTag.exe"
+            "SourcePath" = "8:..\\TimeTag\\obj\\x86\\Release\\TimeTag.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_86ABF2F137A14AEC94F44727E52E1810"
