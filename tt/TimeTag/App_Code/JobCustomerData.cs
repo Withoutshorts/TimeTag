@@ -205,5 +205,105 @@ namespace TimeTag
 
             return jobCustomer;
          }
+
+        public List<outz_JobCustomer> SelectAllJobs(string mid, int startRecord, int maxRecords, DateTime date)
+        {
+            if (string.IsNullOrWhiteSpace(mid))
+            {
+                mid = "1";
+            }
+
+            string sqlCmd = "SELECT r.jobid, j.jobnavn, j.jobnr, j.jobstatus, k.kkundenavn, k.kkundenr, " +
+                            " a.id, a.navn AS aktnavn,  a.projektgruppe1, a.projektgruppe2, a.projektgruppe3, a.projektgruppe4, a.projektgruppe5, " +
+                            " a.projektgruppe6, a.projektgruppe7, a.projektgruppe8, a.projektgruppe9, a.projektgruppe10, a.beskrivelse, " +
+                            " COALESCE((SELECT SUM(timer) FROM ressourcer_md WHERE (jobid = r.jobid AND aktid = a.id AND medid = " + mid + ")  AND (md = " + date.Month + " AND aar = " + date.Year + ") GROUP BY aktid, medid),0) AS restimer, " +
+                            " COALESCE((SELECT SUM(timer) FROM timer WHERE taktivitetid = a.id AND tmnr = " + mid + " AND MONTH(tdato) = " + date.Month + " GROUP BY taktivitetid),0) AS timerbrugt " +
+                            " FROM ressourcer_md AS r " +
+                            " LEFT JOIN job AS j ON (j.id = r.jobid) " +
+                            " LEFT JOIN kunder AS k ON (k.kid = j.jobknr) " +
+                            " LEFT JOIN aktiviteter AS a ON (a.job = r.jobid) " +
+                            " WHERE r.medid = " + mid + " AND r.aktid <> 0 AND k.kkundenavn <> '' AND j.jobstatus = 1 " +
+                            " GROUP BY a.id " +
+                            " ORDER BY kkundenavn, jobnavn ";
+
+            OdbcConnection conn = new OdbcConnection(_connectionString);
+
+            OdbcCommand cmd = new OdbcCommand(sqlCmd, conn);
+            OdbcDataReader reader = null;
+
+            List<outz_JobCustomer> jobCustomers = new List<outz_JobCustomer>();
+            outz_JobCustomer jobCustomer;
+            int count = 0;
+
+            try
+            {
+                conn.Open();
+
+                reader = cmd.ExecuteReader();
+                outz_Activity activity;
+
+                while (reader.Read())
+                {
+                    if (count >= startRecord)
+                    {
+                        outz_JobCustomer existJobCustomer = jobCustomers.FirstOrDefault(jc => jc.JobId == Convert.ToInt32(reader["jobid"]));
+                        if (existJobCustomer == null)
+                        {
+                            jobCustomer = new outz_JobCustomer();
+                            jobCustomer.JobId = Convert.ToInt32(reader["jobid"]);
+                            jobCustomer.JobName = Convert.ToString(reader["jobnavn"]);
+                            jobCustomer.JobNo = Convert.ToString(reader["jobnr"]);
+                            jobCustomer.JobStatus = Convert.ToInt32(reader["jobstatus"]);
+                            jobCustomer.CustomerName = Convert.ToString(reader["kkundenavn"]);
+                            jobCustomer.CustomerNo = Convert.ToString(reader["kkundenr"]);
+                            jobCustomer.Activities = new List<outz_Activity>();
+                        }
+                        else
+                        {
+                            jobCustomer = existJobCustomer;
+                        }
+
+                        activity = new outz_Activity();
+                        activity.Id = Convert.ToInt32(reader["id"]);
+                        activity.Name = Convert.ToString(reader["aktnavn"]);
+                        activity.ProjectGroup1 = Convert.ToInt32(reader["projektgruppe1"]);
+                        activity.ProjectGroup2 = Convert.ToInt32(reader["projektgruppe2"]);
+                        activity.ProjectGroup3 = Convert.ToInt32(reader["projektgruppe3"]);
+                        activity.ProjectGroup4 = Convert.ToInt32(reader["projektgruppe4"]);
+                        activity.ProjectGroup5 = Convert.ToInt32(reader["projektgruppe5"]);
+                        activity.ProjectGroup6 = Convert.ToInt32(reader["projektgruppe6"]);
+                        activity.ProjectGroup7 = Convert.ToInt32(reader["projektgruppe7"]);
+                        activity.ProjectGroup8 = Convert.ToInt32(reader["projektgruppe8"]);
+                        activity.ProjectGroup9 = Convert.ToInt32(reader["projektgruppe9"]);
+                        activity.ProjectGroup10 = Convert.ToInt32(reader["projektgruppe10"]);
+                        activity.ResourceHours = Convert.ToInt32(reader["restimer"]);
+                        activity.ReportedHours = Convert.ToInt32(reader["timerbrugt"]);
+
+                        jobCustomer.Activities.Add(activity);
+
+                        if (existJobCustomer == null)
+                        {
+                            jobCustomers.Add(jobCustomer);
+                        }
+                    }
+
+                    count++;
+                }
+
+                outz_JobCustomer obj = new outz_JobCustomer();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Problems in jobCustomer data factory => select all jobCustomers: " + ex.Message);
+            }
+            finally
+            {
+                if (reader != null) { reader.Close(); }
+                conn.Close();
+            }
+
+            return jobCustomers;
+        }
     }
 }

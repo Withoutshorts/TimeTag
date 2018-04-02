@@ -170,7 +170,7 @@ namespace TimeTag
 
             //Empty offline time records if any, upload them to server
             //EmptyOfflineTime();
-            Title = string.Format("Outzource - TimeTag S {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            Title = string.Format("Outzource - TimeTag BF {0}", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
         }
 
         private void ShowRightBottom()

@@ -55,8 +55,13 @@
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="7,6,0,0" x:Name="titleStart_Copy" Text="{StaticResource Date}" VerticalAlignment="Top" Foreground="#464646" Width="106" />
         <TextBox Height="30" HorizontalAlignment="Left" Margin="395,92,0,0" x:Name="txtHours" Text="" VerticalAlignment="Top" Width="35" />
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="395,71,0,0" x:Name="titleStart_Copy1" Text="{StaticResource Time}" VerticalAlignment="Top" Foreground="#464646" Width="32" />
-        <DatePicker x:Name="selectedDate" Height="30" HorizontalAlignment="Left" Margin="7,29,0,0" VerticalAlignment="Top" Width="223" SelectedDateChanged="selectedDate_SelectedDateChanged" ></DatePicker>
+        <DatePicker x:Name="selectedDate" Height="30" HorizontalAlignment="Left" Margin="7,29,0,0" VerticalAlignment="Top" Width="223"></DatePicker>
 
         <TextBlock Height="23" HorizontalAlignment="Right" Margin="0,64,265.2,0" Name="txtrefresh" Text="✓" VerticalAlignment="Top" Foreground="#FF00A000" OpacityMask="#FF00B700" Visibility="Hidden"  />
+        <!--<TextBlock Height="23" Width="405" HorizontalAlignment="Left" Margin="22,1,0,0" Name="sqlstatus0" Text="SQL0:" VerticalAlignment="Top" Foreground="#FF00A000" Grid.Row="1"/>
+        <TextBlock Height="23" Width="405" HorizontalAlignment="Left" Margin="22,10,0,0" Name="sqlstatus1" Text="SQL1:" VerticalAlignment="Top" Foreground="#FF00A000" Grid.Row="1"/>
+        <TextBlock Height="23" Width="405" HorizontalAlignment="Left" Margin="22,38,0,0" Name="sqlstatus2" Text="SQL2:" VerticalAlignment="Top" Foreground="#FF00A000" Grid.Row="1"/>
+        <TextBlock Height="23" Width="405" HorizontalAlignment="Left" Margin="22,61,0,0" Name="sqlstatus3" Text="SQL3:" VerticalAlignment="Top" Foreground="#FF00A000" Grid.Row="1"/>-->
+
     </Grid>
 </UserControl>

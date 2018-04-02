@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_9\|C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_55\|C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_54\|C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_41\|C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_4\</PublishUrlHistory>
+    <PublishUrlHistory>C:\www\timetag_tt\msi\|C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_9\|C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_55\|C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_54\|C:\www\timeout_xp\wwwroot\timetag_stop\TimeTag\publish\Application Files\TimeTag_stop_1_0_0_41\</PublishUrlHistory>
     <InstallUrlHistory>https://outzource.dk/timeout_xp/wwwroot/ver2_14/tools/timetag.application/|https://outzource.dk/timeout_xp/wwwroot/ver2_10/tools/timetag.application/|http://localhost/timeout_xp/|https://outzource.dk/timeout_xp/wwwroot/ver2_10/tools/</InstallUrlHistory>
     <SupportUrlHistory>http://www.outzource.dk/kontakt.aspx</SupportUrlHistory>
     <UpdateUrlHistory>https://outzource.dk/timeout_xp/wwwroot/ver2_14/tools/|https://outzource.dk/timeout_xp/wwwroot/ver2_10/tools/</UpdateUrlHistory>

@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+            <section name="TimeTag.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false"/>
+        </sectionGroup>
+        <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+            <section name="TimeTag.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false"/>
+        </sectionGroup>
+    </configSections>
+    <userSettings>
+        <TimeTag.Properties.Settings>
+            <setting name="ErrorLog" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string />
+                    </ArrayOfString>
+                </value>
+            </setting>
+            <setting name="TimeOffline" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string />
+                    </ArrayOfString>
+                </value>
+            </setting>
+            <setting name="StatusLog" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string />
+                    </ArrayOfString>
+                </value>
+            </setting>
+            <setting name="UserInfo" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string>lto:outz</string>
+                        <string>medid:1</string>
+                        <string>pa:1</string>
+                    </ArrayOfString>
+                </value>
+            </setting>
+        </TimeTag.Properties.Settings>
+    </userSettings>
+    <applicationSettings>
+        <TimeTag.Properties.Settings>
+            <setting name="TimeTag_dk_outzource1_to_import" serializeAs="String">
+                <value>https://outzource.dk/timeout_xp/wwwroot/ver2_1/timereg_net/ozimporthours.asmx</value>
+            </setting>
+            <setting name="TimeTag_dk_outzource1_to_import_timetag" serializeAs="String">
+                <value>https://outzource.dk/timeout_xp/wwwroot/ver2_1/timereg_net/ozimporthours_timetag.asmx</value>
+            </setting>
+            <setting name="TimeInputType" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="RequireAllFields" serializeAs="Xml">
+                <value>
+                    <ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+                        <string>lyng</string>
+                        <string>assurator</string>
+                    </ArrayOfString>
+                </value>
+            </setting>
+            <setting name="ListActivities" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="Culture" serializeAs="String">
+                <value>fr-FR</value>
+            </setting>
+            <setting name="TimeInputMode" serializeAs="String">
+                <value>Manual</value>
+            </setting>
+        </TimeTag.Properties.Settings>
+    </applicationSettings>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/></startup><system.serviceModel>
+        <bindings>
+            <basicHttpBinding>
+                <binding name="to_import_timetagSoap" />
+            </basicHttpBinding>
+        </bindings>
+        <client>
+            <endpoint address="http://timeout2.outzource.dk/timeout_xp/wwwroot/ver2_14/timereg_net/ozimporthours_timetag.asmx"
+                binding="basicHttpBinding" bindingConfiguration="to_import_timetagSoap"
+                contract="dk.outzource2.to_import_timetagSoap" name="to_import_timetagSoap" />
+        </client>
+    </system.serviceModel>
+</configuration>

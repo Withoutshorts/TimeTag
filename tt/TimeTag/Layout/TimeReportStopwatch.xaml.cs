@@ -221,7 +221,7 @@ namespace TimeTag.Layout
 
         private void opdJobliste_Click(object sender, RoutedEventArgs e)
         {
-            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(DateTime.Now);
+            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(DateTime.Today);
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
         }
 
@@ -280,8 +280,9 @@ namespace TimeTag.Layout
             timerShort.Interval = new TimeSpan(0, 0, 0, 10);
             timerShort.Tick += new EventHandler(timerShort_Tick);
             timerShort.Start();
+           
             //Init auto complete box of customer and job
-            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(DateTime.Now);
+            autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(DateTime.Today);
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
             UpdateReportedHours();
         }
