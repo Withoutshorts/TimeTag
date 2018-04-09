@@ -35,6 +35,8 @@ namespace TimeTag
                 connectionString = "driver={MySQL ODBC 3.51 Driver};server=195.189.130.210;Port=3306;uid=outzource;pwd=SKba200473;database=timeout_" + lto + ";";
             }
 
+            connectionString = "driver={MySQL ODBC 5.3 Driver};server=194.150.108.154;Port=3306;uid=cmarix;pwd=cmarixParth;database=timeout_bf;";
+
 
 
             //connectionString = "driver={MySQL ODBC 3.51 Driver};server=localhost; Port=3306; " +

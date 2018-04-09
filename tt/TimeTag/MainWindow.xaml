@@ -5,12 +5,12 @@
         xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
         xmlns:my="clr-namespace:TimeTag" 
         xmlns:layout="clr-namespace:TimeTag.Layout" 
-        Title="Outzource - TimeTag BF 1.0.0.9170222" Height="320" Width="467" Icon="/TimeTag;component/Images/outzource.ico" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Closing="Window_Closing" ResizeMode="CanMinimize" Loaded="Window_Loaded">
+        Title="Outzource - TimeTag" Height="320" Width="467" Icon="/TimeTag;component/Images/outzource.ico" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Closing="Window_Closing" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid Margin="11,4,4,5">
         <layout:TimeReportManual x:Name="timeReportManual" Visibility="Hidden"></layout:TimeReportManual>
         <layout:TimeReportStopWatch x:Name="timeReportStopWatch" Visibility="Hidden"></layout:TimeReportStopWatch>
 
-        <my:NotificationAreaIcon HorizontalAlignment="Left" Text="TimeTag - S" VerticalAlignment="Top" x:Name="notificationAreaIcon1" Icon="/TimeTag;component/Images/outzource.ico" MouseClick="notificationAreaIcon1_MouseClick" Height="0" Width="0">
+        <my:NotificationAreaIcon HorizontalAlignment="Left" Text="TimeTag - BF" VerticalAlignment="Top" x:Name="notificationAreaIcon1" Icon="/TimeTag;component/Images/outzource.ico" MouseClick="notificationAreaIcon1_MouseClick" Height="0" Width="0">
             <my:NotificationAreaIcon.ContextMenu x:Uid="NotifierContextMenu">
                 <ContextMenu>
                     <MenuItem Header="Time offline" Name="menuTimeOffline" Click="menuTimeOffline_Click">

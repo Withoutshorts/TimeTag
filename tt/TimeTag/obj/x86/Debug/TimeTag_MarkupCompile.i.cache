@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\OliverStorm\Source\Repos\TimeTag3\tt\TimeTag\obj\x86\Debug\
+C:\www\timetag_tt\tt\TimeTag\obj\x86\Debug\
 TimeTag
 none
 false
 DEBUG;TRACE
-C:\Users\OliverStorm\Source\Repos\TimeTag3\tt\TimeTag\App.xaml
+C:\www\timetag_tt\tt\TimeTag\App.xaml
 10-1411363053
 
-45157555178
-262144110740
+452108373659
+26-1624084371
 Layout\TimeReportStopwatch.xaml;Layout\TimeReportManual.xaml;MainWindow.xaml;Resources\StringResources.da-DK.xaml;Resources\StringResources.fr-FR.xaml;Test\DsSent.xaml;Test\ErrorLog.xaml;Test\StatusLog.xaml;Test\TimeOffline.xaml;Test\UserInfo.xaml;
 
-False
+True
 
