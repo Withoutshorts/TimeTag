@@ -200,7 +200,7 @@ namespace TimeTag
         {
             try
             {
-                string[] infos = HelperSetting.ReadLines(Properties.Settings.Default.UserInfo, 4);
+                string[] infos = HelperSetting.UserInfo;
                 this.LTO = infos[0].Split(':').Skip(1).ToArray()[0];
                 this.MID = infos[1].Split(':').Skip(1).ToArray()[0];
                 this.PA = infos[2].Split(':').Skip(1).ToArray()[0];
@@ -237,12 +237,12 @@ namespace TimeTag
             {
                 //Log offline
                 string timeRow = string.Format("{0},{1},{2},{3},{4},{5},{6}", this.CustomerJob, this.Activity, this.Hours, this.Comments, this.Status, this.CreatedTime, this.ActivityId);
-                HelperSetting.Write(timeRow, Properties.Settings.Default.TimeOffline, true);
+                HelperSetting.SaveLog(timeRow, HelperSetting.TimeOfflinePath);
 
                 uploadStatus = UploadTimeService(IsNewDb);
 
                 if (uploadStatus.Contains(SUCCESS_WEB_SERVICE))
-                    Properties.Settings.Default.TimeOffline.Clear();
+                    HelperSetting.ClearLog(HelperSetting.TimeOfflinePath);
             }
             catch (Exception ex)
             {
@@ -277,7 +277,7 @@ namespace TimeTag
                     
 
                     if (uploadStatus.Contains(SUCCESS_WEB_SERVICE))
-                        Properties.Settings.Default.TimeOffline.Clear();
+                        HelperSetting.ClearLog(HelperSetting.TimeOfflinePath);
                 }
             }
             catch (Exception ex)

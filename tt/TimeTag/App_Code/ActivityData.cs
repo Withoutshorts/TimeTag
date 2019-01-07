@@ -114,7 +114,7 @@ namespace TimeTag
             string sqlCmd = "SELECT a.id, a.navn as aktnavn, " +
             " a.projektgruppe1, a.projektgruppe2, a.projektgruppe3, a.projektgruppe4, a.projektgruppe5, " +
             " a.projektgruppe6, a.projektgruppe7, a.projektgruppe8, a.projektgruppe9, a.projektgruppe10, a.beskrivelse " +
-            " FROM aktiviteter as a WHERE a.id <> 0 AND a.job = "+ jobid + " and a.aktstatus = 1 AND (a.fakturerbar = 1 OR a.fakturerbar = 2) ORDER BY sortorder, a.navn ";
+            " FROM aktiviteter as a WHERE status = 1 AND a.id <> 0 AND a.job = " + jobid + " and a.aktstatus = 1 AND (a.fakturerbar = 1 OR a.fakturerbar = 2) ORDER BY sortorder, a.navn ";
 
 
 

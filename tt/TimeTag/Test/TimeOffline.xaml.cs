@@ -21,8 +21,7 @@ namespace TimeTag
         public TimeOffline()
         {
             InitializeComponent();
-
-            listBox1.ItemsSource = Properties.Settings.Default.TimeOffline;
+            this.BindData();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
@@ -32,9 +31,13 @@ namespace TimeTag
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.StatusLog.Clear();
-            Properties.Settings.Default.Save();
-            listBox1.Items.Refresh();
+            HelperSetting.ClearLog(HelperSetting.TimeOfflinePath);
+            this.BindData();
+        }
+
+        private void BindData()
+        {
+            lstTimeOffline.ItemsSource = HelperSetting.ReadSettings(HelperSetting.TimeOfflinePath);
         }
     }
 }

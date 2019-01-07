@@ -24,24 +24,26 @@ namespace TimeTag
             {
                 if (nvc != null && nvc.GetValues("lto") != null && nvc.GetValues("mid") != null && nvc.GetValues("pa") != null && nvc.GetValues("db") != null)
                 {
-                    Properties.Settings.Default.UserInfo.Clear();
-                    Properties.Settings.Default.UserInfo.Add("lto:" + nvc.GetValues("lto").GetValue(0));
-                    Properties.Settings.Default.UserInfo.Add("medid:" + nvc.GetValues("mid").GetValue(0));
-                    Properties.Settings.Default.UserInfo.Add("pa:" + nvc.GetValues("pa").GetValue(0));
-                    Properties.Settings.Default.UserInfo.Add("db:" + nvc.GetValues("db").GetValue(0));
+                    this.Lto = Convert.ToString(nvc.GetValues("lto").GetValue(0));
+                    this.Mid = Convert.ToString(nvc.GetValues("mid").GetValue(0));
+                    this.Pa = Convert.ToString(nvc.GetValues("pa").GetValue(0));
+                    this.IsNewDb = Convert.ToString(nvc.GetValues("db").GetValue(0)) == "new";
                 }
-
+                else
+                {
+                    string[] infos = HelperSetting.UserInfo;
+                    if(infos != null && infos.Length == 4)
+                    {
+                        this.Lto = infos[0].Split(':').Skip(1).ToArray()[0];
+                        this.Mid = infos[1].Split(':').Skip(1).ToArray()[0];
+                        this.Pa = infos[2].Split(':').Skip(1).ToArray()[0];
+                        this.IsNewDb = infos[3].Split(':').Skip(1).ToArray()[0] == "new";
+                    }
+                }
             }
             catch (Exception ex)
             {
                 throw new Exception("Fetching url data failed: " + ex.Message);
-            }
-            if (Properties.Settings.Default.UserInfo.Count == 4)
-            {
-                this.Lto = Properties.Settings.Default.UserInfo[0].Split(new[] { ':' })[1];
-                this.Mid = Properties.Settings.Default.UserInfo[1].Split(new[] { ':' })[1];
-                this.Pa = Properties.Settings.Default.UserInfo[2].Split(new[] { ':' })[1];
-                this.IsNewDb = Properties.Settings.Default.UserInfo[3].Split(new[] { ':' })[1] == "new";
             }
         }
 
@@ -55,7 +57,7 @@ namespace TimeTag
 
         public void SaveToFile()
         {
-            HelperSetting.WriteUserInfo(Properties.Settings.Default.UserInfo, this);
+            HelperSetting.SaveUserInfo(HelperSetting.UserInfoPath, this.Lto, this.Mid, this.Pa, this.IsNewDb);
         }
     }
 }

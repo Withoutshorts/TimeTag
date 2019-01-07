@@ -11,7 +11,7 @@ namespace TimeTag.App_Code
         {
             get
             {
-                return Properties.Settings.Default.UserInfo[2].Split(new[] { ':' })[1];
+                return HelperSetting.UserInfo[2].Split(new[] { ':' })[1];
             }
         }
 
@@ -19,7 +19,7 @@ namespace TimeTag.App_Code
         {
             get
             {
-                return Properties.Settings.Default.UserInfo[0].Split(new[] { ':' })[1];
+                return HelperSetting.UserInfo[0].Split(new[] { ':' })[1];
             }
         }
 
@@ -27,7 +27,7 @@ namespace TimeTag.App_Code
         {
             get
             {
-                return Properties.Settings.Default.UserInfo[1].Split(new[] { ':' })[1];
+                return HelperSetting.UserInfo[1].Split(new[] { ':' })[1];
             }
         }
 
@@ -35,7 +35,7 @@ namespace TimeTag.App_Code
         {
             get
             {
-                return Properties.Settings.Default.UserInfo[3].Split(new[] { ':' })[1] == "new";
+                return HelperSetting.UserInfo[3].Split(new[] { ':' })[1] == "new";
             }
         }
     }

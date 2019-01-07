@@ -70,7 +70,8 @@ namespace TimeTag.App_Code
 
         public decimal GetReportedHoursByActivity(string mid, int activityId, DateTime reportDate)
         {
-            string sqlCmd = string.Format("SELECT COALESCE(SUM(timer), 0) AS timerbrugt FROM timer WHERE taktivitetid = '{0}' AND tmnr = '{1}' AND MONTH(tdato) = '{2}' GROUP BY taktivitetid", activityId, mid, reportDate.Month);
+            //string sqlCmd = string.Format("SELECT COALESCE(SUM(timer), 0) AS timerbrugt FROM timer WHERE taktivitetid = '{0}' AND tmnr = '{1}' AND MONTH(tdato) = '{2}' GROUP BY taktivitetid", activityId, mid, reportDate.Month);
+            string sqlCmd = string.Format("SELECT COALESCE(SUM(timer), 0) AS timerbrugt FROM timer WHERE taktivitetid = '{0}' AND tmnr = '{1}' AND MONTH(tdato) = '{2}' AND YEAR(tdato) = '{3}' GROUP BY taktivitetid ORDER BY navn", activityId, mid, reportDate.Month, reportDate.Year);
             decimal result = 0m;
             OdbcConnection conn = new OdbcConnection(_connectionString);
             OdbcCommand cmd = new OdbcCommand(sqlCmd, conn);

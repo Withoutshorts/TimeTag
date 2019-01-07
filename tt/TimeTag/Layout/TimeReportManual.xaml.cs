@@ -162,7 +162,7 @@ namespace TimeTag.Layout
                 //Log time upload status
                 outz_Log.LogStatus(status);
                 sw.Restart();
-                //UpdateReportedHours();                
+                UpdateReportedHours();                
 
                 sw.Stop();
                 if (sw.ElapsedMilliseconds > 2000)
@@ -208,7 +208,8 @@ namespace TimeTag.Layout
                 return false;
             }
 
-            if (TimeReportHelper.RequireAllFields()) {
+            if (TimeReportHelper.RequireAllFields())
+            {
                 if (autoCustomerJob.SelectedItem == null)
                 {
                     message = FindResource("CustomerJobRequired").ToString();
@@ -237,109 +238,6 @@ namespace TimeTag.Layout
                 }
             }
 
-
-            //if (TimeReportHelper.RequireAllFields())
-            //{
-            //    var activityName = ConfigHelper.ListActivities ? autoActivityList.Text : autoActivity.Text;
-            //    if (string.IsNullOrEmpty(autoCustomerJob.Text))
-            //    {
-            //        message = FindResource("CustomerJobRequired").ToString();
-            //        return false;
-            //    }
-            //    if (lstJobCustomerNames.All(cust => !cust.ToString().Equals(autoCustomerJob.Text, StringComparison.InvariantCultureIgnoreCase)))
-            //    {
-            //        message = FindResource("CustomerJobWrong").ToString();
-            //        return false;
-            //    }
-            //    if (string.IsNullOrEmpty(activityName))
-            //    {
-            //        message = FindResource("ActivityRequired").ToString();
-            //        return false;
-            //    }
-            //    if (lstActivities.All(act => !act.Name.ToString().Equals(activityName, StringComparison.InvariantCultureIgnoreCase)))
-            //    {
-            //        message = FindResource("ActivityWrong").ToString();
-            //        return false;
-            //    }
-            //}
-
-            //if (UserInfoProvider.PA == "2" &&
-            //    !string.IsNullOrEmpty(UserInfoProvider.LTO) &&
-            //    "bf".Equals(UserInfoProvider.LTO, StringComparison.InvariantCultureIgnoreCase) &&
-            //    SelectedCustomerId.HasValue && SelectedActivityId.HasValue)
-            //{
-            //    var hoursReportedBefore = 0m;
-            //    var resourceHours = 0m;
-
-            //    bool isOnline = HelperInternet.IsOnline();
-            //    if (isOnline) // LAVER KUN Ressourcetimer tjk IF online = true
-            //    {
-
-            //        //sqlstatus0.Text = "HEJ Der 8: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + " isOnline: " + isOnline;
-
-
-            //        try
-            //        {
-            //            var rdp = new ResourceDataProvider(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-            //            resourceHours = rdp.GetResourceHours(UserInfoProvider.MID, SelectedCustomerId.Value, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
-
-            //            HoursService hoursService = new HoursService(UserInfoProvider.LTO, UserInfoProvider.IsNewDb);
-            //            hoursReportedBefore = hoursService.GetReportedHoursByActivity(UserInfoProvider.MID, SelectedActivityId.Value, selectedDate.SelectedDate.Value);
-
-            //            var activities = outz_JobCustomer.GetActivities(autoCustomerJob.Text, lstJobCustomerNames);
-            //            var activity = activities.FirstOrDefault(act => act.Id == SelectedActivityId.Value);
-            //            if (activity != null)
-            //            {
-
-            //                activity.ResourceHours = resourceHours;
-            //                activity.ReportedHours = hoursReportedBefore + decimal.Parse(txtHours.Text);
-
-            //            }
-
-            //            //bool isOnline = HelperInternet.IsOnline();
-            //            //if (isOnline)
-            //            //{
-
-            //            //sqlstatus1.Text = "HEJ Der 9: resourceHours: " + resourceHours + " hoursBefore: " + hoursReportedBefore + " isOnline: " + isOnline;
-
-
-
-            //        }
-            //        catch
-            //        {
-
-
-            //            var activities = outz_JobCustomer.GetActivities(autoCustomerJob.Text, lstJobCustomerNames);
-            //            var activity = activities.FirstOrDefault(act => act.Id == SelectedActivityId.Value);
-            //            if (activity != null)
-            //            {
-            //                resourceHours = activity.ResourceHours;
-            //                hoursReportedBefore = activity.ReportedHours;
-
-            //                if (decimal.Parse(txtHours.Text) + hoursReportedBefore <= resourceHours)
-            //                {
-            //                    // activity.ReportedHours = 100;
-            //                    activity.ReportedHours = hoursReportedBefore + decimal.Parse(txtHours.Text);
-            //                    //activity.ResourceHours = activity.ResourceHours;
-            //                }
-            //            }
-            //            //sqlstatus1.Text = "HEJ Der 9: Offline";
-
-            //            //sqlstatus2.Text = "HEJ Der 10: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + "  txtHours: " + decimal.Parse(txtHours.Text) + " isOnline: " + isOnline;
-
-            //        }
-            //        if (decimal.Parse(txtHours.Text) + hoursReportedBefore > resourceHours)
-            //        {
-
-            //            message = FindResource("ResourcesExceeded2") + " " + (resourceHours - (hoursReportedBefore + decimal.Parse(txtHours.Text))) + " " + FindResource("ResourcesExceeded3").ToString();
-            //            return false;
-            //        }
-            //        //sqlstatus3.Text = "HEJ Der 11: resourceHours: " + resourceHours + " hoursReportedBefore: " + hoursReportedBefore + "txtHours: " + decimal.Parse(txtHours.Text);
-
-            //    }
-
-            //} // online
-
             message = string.Empty;
             return true;
         }
@@ -363,7 +261,6 @@ namespace TimeTag.Layout
             txtrefresh.Visibility = System.Windows.Visibility.Visible;
             settimer();
         }
-
 
         private void autoCustomerJob_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
@@ -447,7 +344,6 @@ namespace TimeTag.Layout
 
             selectedDate.SelectedDate = DateTime.Today;
             selectedDate.SelectedDateChanged += selectedDate_SelectedDateChanged;
-
             //Init auto complete box of customer and job
             autoCustomerJob.ItemsSource = TimeReportHelper.GetCustomerJobs(selectedDate.SelectedDate.Value);
             autoCustomerJob.ItemFilter += TimeReportHelper.SearchCustomerJob;
@@ -544,10 +440,13 @@ namespace TimeTag.Layout
                 if (tt.PA == "22")
                 {
                     var activities = outz_JobCustomer.GetActivities(autoCustomerJob.Text, lstJobCustomerNames);
-                    foreach (var act in activities)
+                    if (activities != null)
                     {
-                        act.ResourceHours = 0;
-                        act.ReportedHours = 0;
+                        foreach (var act in activities)
+                        {
+                            act.ResourceHours = 0;
+                            act.ReportedHours = 0;
+                        }
                     }
                 }
             }

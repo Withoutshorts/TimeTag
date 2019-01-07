@@ -12,31 +12,31 @@ namespace TimeTag
     /// </summary>
     public class JobCustomerData
     {
-         private string _connectionString;
+        private string _connectionString;
 
-         public JobCustomerData(string lto, bool isNewDb)
-         {
-             //lto = "glad";
-             _connectionString = DBHandler.Initialize(lto, isNewDb);
-         }
+        public JobCustomerData(string lto, bool isNewDb)
+        {
+            //lto = "glad";
+            _connectionString = DBHandler.Initialize(lto, isNewDb);
+        }
 
-         /// <summary>
-         /// Select all jobCustomers
-         /// </summary>
-         /// <param name="sortColumns">column names or column names plus desc and LIMIT 50</param>
-         /// <param name="startRecord">minimum jobCustomers</param>
-         /// <param name="maxRecords">maximum jobCustomers</param>
-         /// <returns></returns>
-         public List<outz_JobCustomerOrigin> SelectAllJobCustomers(string mid, string sortColumns, int startRecord, int maxRecords)
-         {
-             if (string.IsNullOrWhiteSpace(mid))
-             {
-                 mid = "1";
-             }
-             //string sqlCmd = "SELECT j.id, j.jobnavn, j.jobnr, j.jobstatus, k.kkundenavn, k.kkundenr, k.kinit FROM timereg_usejob AS tu" +
-             //    " LEFT JOIN job AS j ON (j.id = tu.jobid) LEFT JOIN kunder AS k ON (k.kid = j.jobknr)"+
-             //    " WHERE tu.medarb = " + mid + " AND (j.jobstatus = 1) "+
-             //    " AND kkundenavn <> '' GROUP BY j.id ";
+        /// <summary>
+        /// Select all jobCustomers
+        /// </summary>
+        /// <param name="sortColumns">column names or column names plus desc and LIMIT 50</param>
+        /// <param name="startRecord">minimum jobCustomers</param>
+        /// <param name="maxRecords">maximum jobCustomers</param>
+        /// <returns></returns>
+        public List<outz_JobCustomerOrigin> SelectAllJobCustomers(string mid, string sortColumns, int startRecord, int maxRecords)
+        {
+            if (string.IsNullOrWhiteSpace(mid))
+            {
+                mid = "1";
+            }
+            //string sqlCmd = "SELECT j.id, j.jobnavn, j.jobnr, j.jobstatus, k.kkundenavn, k.kkundenr, k.kinit FROM timereg_usejob AS tu" +
+            //    " LEFT JOIN job AS j ON (j.id = tu.jobid) LEFT JOIN kunder AS k ON (k.kid = j.jobknr)"+
+            //    " WHERE tu.medarb = " + mid + " AND (j.jobstatus = 1) "+
+            //    " AND kkundenavn <> '' GROUP BY j.id ";
 
             string sqlCmd = "SELECT r.jobid, j.jobnavn, j.jobnr, j.jobstatus, k.kkundenavn, k.kkundenr, k.kinit, SUM(r.timer) AS restimer FROM ressourcer_md AS r " +
                             " LEFT JOIN job AS j ON (j.id = r.jobid) " +
@@ -46,72 +46,72 @@ namespace TimeTag
             //OR j.jobstatus = 3
 
             if (sortColumns.Trim() == "")
-                 sqlCmd += "ORDER BY kkundenavn, jobnavn";
-             else
-                 sqlCmd += "ORDER BY " + sortColumns;
+                sqlCmd += "ORDER BY kkundenavn, jobnavn";
+            else
+                sqlCmd += "ORDER BY " + sortColumns;
 
 
-             //sqlCmd += " LIMIT 10 ";
+            //sqlCmd += " LIMIT 10 ";
 
 
-             OdbcConnection conn = new OdbcConnection(_connectionString);
+            OdbcConnection conn = new OdbcConnection(_connectionString);
 
-             OdbcCommand cmd = new OdbcCommand(sqlCmd, conn);
-             OdbcDataReader reader = null;
+            OdbcCommand cmd = new OdbcCommand(sqlCmd, conn);
+            OdbcDataReader reader = null;
 
-             List<outz_JobCustomerOrigin> jobCustomers = new List<outz_JobCustomerOrigin>();
-             int count = 0;
+            List<outz_JobCustomerOrigin> jobCustomers = new List<outz_JobCustomerOrigin>();
+            int count = 0;
 
-             try
-             {
-                 conn.Open();
+            try
+            {
+                conn.Open();
 
-                 reader = cmd.ExecuteReader();
+                reader = cmd.ExecuteReader();
 
-                 while (reader.Read())
-                 {
-                     if (count >= startRecord)
-                     {
-                         //if (jobCustomers.Count < maxRecords)
-                             jobCustomers.Add(GetJobCustomerFromReader(reader));
-                         //else
-                         //    cmd.Cancel();
-                     }
+                while (reader.Read())
+                {
+                    if (count >= startRecord)
+                    {
+                        //if (jobCustomers.Count < maxRecords)
+                        jobCustomers.Add(GetJobCustomerFromReader(reader));
+                        //else
+                        //    cmd.Cancel();
+                    }
 
-                     count++;
-                 }
+                    count++;
+                }
 
-             }
-             catch (Exception ex)
-             {
-                 throw new Exception("Problems in jobCustomer data factory => select all jobCustomers: " + ex.Message);
-             }
-             finally
-             {
-                 if (reader != null) { reader.Close(); }
-                 conn.Close();
-             }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Problems in jobCustomer data factory => select all jobCustomers: " + ex.Message);
+            }
+            finally
+            {
+                if (reader != null) { reader.Close(); }
+                conn.Close();
+            }
 
-             return jobCustomers;
-         }
+            return jobCustomers;
+        }
 
-         /// <summary>
-         /// Select all jobCustomers
-         /// </summary>
-         /// <param name="sortColumns">column names or column names plus desc and LIMIT 50</param>
-         /// <param name="startRecord">minimum jobCustomers</param>
-         /// <param name="maxRecords">maximum jobCustomers</param>
-         /// <returns></returns>
-         public List<outz_JobCustomerOrigin> SelectAllJobCustomersOnlyActiveJob(string mid, string sortColumns, int startRecord, int maxRecords)
-         {
-             if (string.IsNullOrWhiteSpace(mid))
-             {
-                 mid = "1";
-             }
-             //string sqlCmd = "SELECT j.id, j.jobnavn, j.jobnr, j.jobstatus, k.kkundenavn, k.kkundenr, k.kinit FROM timereg_usejob AS tu" +
-             //    " LEFT JOIN job AS j ON (j.id = tu.jobid) LEFT JOIN kunder AS k ON (k.kid = j.jobknr)" +
-             //    " WHERE tu.medarb = " + mid + " AND (j.jobstatus = 1) " +
-             //    " AND kkundenavn <> '' AND tu.forvalgt='1' GROUP BY j.id ";
+        /// <summary>
+        /// Select all jobCustomers
+        /// </summary>
+        /// <param name="sortColumns">column names or column names plus desc and LIMIT 50</param>
+        /// <param name="startRecord">minimum jobCustomers</param>
+        /// <param name="maxRecords">maximum jobCustomers</param>
+        /// <returns></returns>
+        public List<outz_JobCustomerOrigin> SelectAllJobCustomersOnlyActiveJob(string mid, string sortColumns, int startRecord, int maxRecords)
+        {
+            if (string.IsNullOrWhiteSpace(mid))
+            {
+                mid = "1";
+            }
+            //string sqlCmd = "SELECT j.id, j.jobnavn, j.jobnr, j.jobstatus, k.kkundenavn, k.kkundenr, k.kinit FROM timereg_usejob AS tu" +
+            //    " LEFT JOIN job AS j ON (j.id = tu.jobid) LEFT JOIN kunder AS k ON (k.kid = j.jobknr)" +
+            //    " WHERE tu.medarb = " + mid + " AND (j.jobstatus = 1) " +
+            //    " AND kkundenavn <> '' AND tu.forvalgt='1' GROUP BY j.id ";
 
             string sqlCmd = "SELECT r.jobid, j.jobnavn, j.jobnr, j.jobstatus, k.kkundenavn, k.kkundenr, k.kinit, SUM(r.timer) AS restimer FROM ressourcer_md AS r " +
                             " LEFT JOIN job AS j ON (j.id = r.jobid) " +
@@ -123,73 +123,73 @@ namespace TimeTag
             //OR j.jobstatus = 3
 
             if (sortColumns.Trim() == "")
-                 sqlCmd += "ORDER BY kkundenavn, jobnavn";
-             else
-                 sqlCmd += "ORDER BY " + sortColumns;
+                sqlCmd += "ORDER BY kkundenavn, jobnavn";
+            else
+                sqlCmd += "ORDER BY " + sortColumns;
 
 
-             //sqlCmd += " LIMIT 10 ";
+            //sqlCmd += " LIMIT 10 ";
 
-          
 
-             OdbcConnection conn = new OdbcConnection(_connectionString);
 
-             OdbcCommand cmd = new OdbcCommand(sqlCmd, conn);
-             OdbcDataReader reader = null;
+            OdbcConnection conn = new OdbcConnection(_connectionString);
 
-             List<outz_JobCustomerOrigin> jobCustomers = new List<outz_JobCustomerOrigin>();
-             int count = 0;
+            OdbcCommand cmd = new OdbcCommand(sqlCmd, conn);
+            OdbcDataReader reader = null;
 
-             try
-             {
-                 conn.Open();
-                 
-                 reader = cmd.ExecuteReader();
+            List<outz_JobCustomerOrigin> jobCustomers = new List<outz_JobCustomerOrigin>();
+            int count = 0;
 
-                 while (reader.Read())
-                 {
-                     if (count >= startRecord)
-                     {
-                         //if (jobCustomers.Count < maxRecords)
-                         //{
-                             jobCustomers.Add(GetJobCustomerFromReader(reader));
-                         //}
-                         //else
-                         //    cmd.Cancel();
-                     }
+            try
+            {
+                conn.Open();
 
-                     count++;
-                 }
+                reader = cmd.ExecuteReader();
 
-             }
-             catch (OdbcException ex)
-             {     
-                     throw new Exception("odbcException: "+ex.Message);                 
-             }
-             catch (Exception ex)
-             {
-                 throw new Exception("Problems in jobCustomer data factry => select all active jobCustomers: " + ex.Message);
-             }
-             finally
-             {
-                 if (reader != null) { reader.Close(); }
-                 conn.Close();
-             }
+                while (reader.Read())
+                {
+                    if (count >= startRecord)
+                    {
+                        //if (jobCustomers.Count < maxRecords)
+                        //{
+                        jobCustomers.Add(GetJobCustomerFromReader(reader));
+                        //}
+                        //else
+                        //    cmd.Cancel();
+                    }
 
-             return jobCustomers;
-         }
+                    count++;
+                }
 
-         private outz_JobCustomerOrigin GetJobCustomerFromReader(OdbcDataReader reader)
-         {
-             outz_JobCustomerOrigin jobCustomer = new outz_JobCustomerOrigin();
+            }
+            catch (OdbcException ex)
+            {
+                throw new Exception("odbcException: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Problems in jobCustomer data factry => select all active jobCustomers: " + ex.Message);
+            }
+            finally
+            {
+                if (reader != null) { reader.Close(); }
+                conn.Close();
+            }
 
-             jobCustomer.JobId = reader.GetInt32(0);
+            return jobCustomers;
+        }
 
-             if (reader.GetValue(1) != DBNull.Value)
-                 jobCustomer.JobName = reader.GetString(1);
+        private outz_JobCustomerOrigin GetJobCustomerFromReader(OdbcDataReader reader)
+        {
+            outz_JobCustomerOrigin jobCustomer = new outz_JobCustomerOrigin();
 
-             if (reader.GetValue(2) != DBNull.Value)
-                 jobCustomer.JobNo = reader.GetString(2);
+            jobCustomer.JobId = reader.GetInt32(0);
+
+            if (reader.GetValue(1) != DBNull.Value)
+                jobCustomer.JobName = reader.GetString(1);
+
+            if (reader.GetValue(2) != DBNull.Value)
+                jobCustomer.JobNo = reader.GetString(2);
 
             if (reader.GetValue(3) != DBNull.Value)
                 jobCustomer.JobStatus = Int32.Parse(reader.GetValue(3).ToString());
@@ -204,7 +204,7 @@ namespace TimeTag
                 jobCustomer.CustomerInit = reader.GetString(6);
 
             return jobCustomer;
-         }
+        }
 
         public List<outz_JobCustomer> SelectAllJobs(string mid, int startRecord, int maxRecords, DateTime date)
         {

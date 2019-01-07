@@ -8,13 +8,13 @@ namespace TimeTag
 {
     public class outz_Log
     {
-        private static readonly TextWriter tw = TextWriter.Synchronized(File.AppendText(System.AppDomain.CurrentDomain.BaseDirectory + "Log.txt"));
+        public static TextWriter tw = TextWriter.Synchronized(File.AppendText(HelperSetting.LogFilePath));
         private static readonly object _syncObject = new object();
         public static void LogError(string message)
         {
             try
             {
-                HelperSetting.WriteWithTime(message, Properties.Settings.Default.ErrorLog, true);
+                HelperSetting.SaveLog(string.Format("{0} @ {1}", message, DateTime.Now.ToString()), HelperSetting.ErrorLogPath);
             }
             catch
             {               
@@ -25,7 +25,7 @@ namespace TimeTag
         {
             try
             {
-                HelperSetting.WriteWithTime(message, Properties.Settings.Default.StatusLog, true);
+                HelperSetting.SaveLog(string.Format("{0} @ {1}", message, DateTime.Now.ToString()), HelperSetting.StatusLogPath);
             }
             catch
             {

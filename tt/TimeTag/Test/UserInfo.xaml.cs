@@ -22,14 +22,18 @@ namespace TimeTag
         public UserInfo()
         {
             InitializeComponent();
-            //tbxLto.Text = Properties.Settings.Default.UserInfo[0].Split(new[] {':'})[1];
+            //tbxLto.Text = HelperSetting.UserInfo[0].Split(new[] {':'})[1];
             tbxLto.Text = "bf".ToString();
-            tbxMid.Text = Properties.Settings.Default.UserInfo[1].Split(new[] {':'})[1];
-            //tbxPa.Text = Properties.Settings.Default.UserInfo[2].Split(new[] { ':' })[1];
+            if (HelperSetting.UserInfo.Length > 0)
+            {
+                tbxMid.Text = HelperSetting.UserInfo[1].Split(new[] { ':' })[1];
+            }
+            
+            //tbxPa.Text = HelperSetting.UserInfo[2].Split(new[] { ':' })[1];
             tbxPa.Text = "2".ToString();
-            //cbxNewDb.IsChecked = Properties.Settings.Default.UserInfo[3].Split(new[] { ':' })[1] == "new";
+            //cbxNewDb.IsChecked = HelperSetting.UserInfo[3].Split(new[] { ':' })[1] == "new";
             cbxNewDb.IsChecked = true;
-            //listBox1.ItemsSource = Properties.Settings.Default.UserInfo;
+            //listBox1.ItemsSource = HelperSetting.UserInfo;
 
             cbxNewDb.Content = FindResource("DBtxt").ToString();
             btnCancel.Content = FindResource("UserinfoCancel").ToString();
@@ -63,12 +67,7 @@ namespace TimeTag
         {
             if (ValidateField())
             {
-                Properties.Settings.Default.UserInfo.Clear();
-                Properties.Settings.Default.UserInfo.Add("lto:" + tbxLto.Text);
-                Properties.Settings.Default.UserInfo.Add("medid:" + tbxMid.Text);
-                Properties.Settings.Default.UserInfo.Add("pa:" + tbxPa.Text);
-                Properties.Settings.Default.UserInfo.Add("db:" + (cbxNewDb.IsChecked == true ? "new" : ""));
-                Properties.Settings.Default.Save();
+                HelperSetting.SaveUserInfo(HelperSetting.UserInfoPath, tbxLto.Text.Trim(), tbxMid.Text.Trim(), tbxPa.Text.Trim(), cbxNewDb.IsChecked == true);
                 Close();
             }
         }
@@ -99,9 +98,9 @@ namespace TimeTag
 
         private bool IsConfigurationSaved()
         {
-            return !string.IsNullOrWhiteSpace(Properties.Settings.Default.UserInfo[0].Split(new[] {':'})[1]) &&
-                   !string.IsNullOrWhiteSpace(Properties.Settings.Default.UserInfo[1].Split(new[] {':'})[1]) &&
-                   !string.IsNullOrWhiteSpace(tbxPa.Text = Properties.Settings.Default.UserInfo[2].Split(new[] {':'})[1]);
+            return !string.IsNullOrWhiteSpace(HelperSetting.UserInfo[0].Split(new[] {':'})[1]) &&
+                   !string.IsNullOrWhiteSpace(HelperSetting.UserInfo[1].Split(new[] {':'})[1]) &&
+                   !string.IsNullOrWhiteSpace(tbxPa.Text = HelperSetting.UserInfo[2].Split(new[] {':'})[1]);
         }
 
 
